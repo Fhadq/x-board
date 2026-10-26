@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="night">
+<html lang="ar" dir="rtl" data-theme="night">
 <head>
 <meta http-equiv="Cache-Control" content="no-cache" />
 <meta http-equiv="Pragma" content="no-cache" />
@@ -7,10 +7,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#07090b" />
 <meta name="color-scheme" content="dark light" />
-<title>Grok Bot X Virality Score · @your_handle</title>
+<title>فهد · مؤشر الانتشار على X</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2307090b'/%3E%3Cpath fill='%232ad4f5' d='M7.2 7h4.1l4.7 6.3L20.7 7H25l-7.4 8.6L25.2 25h-4.1l-5.1-6.8L10.7 25H6.4l7.6-9.4z'/%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@500;600;700;800&display=swap" rel="stylesheet" />
 <style>
 /* xvs-dash-2026 · Grok Bot X Virality Score board */
 /* xvs-mobile-2026 · phone / tablet layout pass */
@@ -49,6 +50,13 @@
   --radius-sm:10px;
   --ease:cubic-bezier(.22,.8,.24,1);
   --theme-dur:.42s;
+  --font-ar:"IBM Plex Sans Arabic","Noto Naskh Arabic","Noto Sans Arabic","Segoe UI",Tahoma,sans-serif;
+  --font-display:"Noto Kufi Arabic","IBM Plex Sans Arabic","Noto Naskh Arabic",sans-serif;
+  --font-num:"IBM Plex Mono",ui-monospace,monospace;
+  --ring-glow:rgba(42,212,245,.34);
+  --edge:rgba(42,212,245,.22);
+  --aurora-a:rgba(42,212,245,.22);
+  --aurora-b:rgba(200,240,74,.14);
 }
 html[data-theme="day"] {
   --bg:#f3f6f8;
@@ -81,6 +89,10 @@ html[data-theme="day"] {
   --shadow:0 16px 40px rgba(10,18,21,.08);
   --noise:rgba(10,18,21,.02);
   --scan:rgba(4,143,173,.025);
+  --ring-glow:rgba(4,143,173,.22);
+  --edge:rgba(4,143,173,.16);
+  --aurora-a:rgba(4,143,173,.16);
+  --aurora-b:rgba(79,143,0,.10);
 }
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;overflow-x:hidden;max-width:100%}
@@ -92,7 +104,8 @@ body.xvs-mobile-2026{
 }
 body.xvs-dash-2026{
   margin:0;min-height:100vh;color:var(--text);
-  font-family:Inter,system-ui,sans-serif;
+  font-family:var(--font-ar);
+  line-height:1.75;
   background-color:var(--bg);
   background-image:
     radial-gradient(900px 420px at 12% -8%, var(--glow), transparent 55%),
@@ -136,50 +149,55 @@ a{color:inherit}
 .x-logo:hover{transform:translateY(-1px) scale(1.02)}
 html[data-theme="day"] .x-logo{background:#111;box-shadow:0 8px 20px rgba(0,0,0,.12)}
 .x-logo svg{width:22px;height:22px}
-.eyebrow{font:600 10px/1 "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.2em;color:var(--cyan)}
-h1{margin:6px 0 0;font-size:clamp(20px,3vw,30px);line-height:1.05;letter-spacing:-.045em;font-weight:800}
-.handle{color:var(--muted);font-weight:600}
-.powered{margin-top:7px;font:500 10px/1 "IBM Plex Mono",monospace;color:var(--faint);letter-spacing:.04em}
-.header-meta{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.eyebrow{font:600 12px/1.6 var(--font-ar);letter-spacing:0;text-transform:none;color:var(--cyan)}
+h1{margin:6px 0 0;font-family:var(--font-display);font-size:clamp(22px,3vw,32px);line-height:1.45;letter-spacing:0;font-weight:700}
+.handle{color:var(--muted);font-weight:600;font-family:var(--font-num);font-size:.62em}
+.powered{margin-top:7px;font:500 13px/1.6 var(--font-ar);color:var(--faint);letter-spacing:0}
+.header-meta{text-align:end;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
 .header-actions{display:flex;align-items:center;gap:10px}
 .theme-toggle{
   border:1px solid var(--line);background:var(--panel-glass);backdrop-filter:blur(10px);
-  color:var(--text);padding:9px 14px;font:600 10px "IBM Plex Mono",monospace;
-  letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border-radius:999px;
-  display:inline-flex;align-items:center;gap:8px;
+  color:var(--text);padding:9px 14px;font:600 13px/1 var(--font-ar);
+  letter-spacing:0;text-transform:none;cursor:pointer;border-radius:999px;
+  display:inline-flex;align-items:center;gap:8px;white-space:nowrap;
   transition:border-color .25s, color .25s, background .25s, transform .25s var(--ease);
 }
 .theme-toggle:hover{border-color:var(--cyan);color:var(--cyan);transform:translateY(-1px)}
 .theme-toggle .ico{width:14px;height:14px;display:grid;place-items:center}
-.live{display:inline-flex;align-items:center;gap:8px;font:600 11px "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.1em;color:var(--green)}
+.live{display:inline-flex;align-items:center;gap:8px;font:600 12px/1 var(--font-ar);letter-spacing:0;text-transform:none;color:var(--green);white-space:nowrap}
 .live-dot{width:8px;height:8px;background:var(--green);border-radius:50%;box-shadow:0 0 12px var(--green);position:relative}
 .live-dot::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--green);opacity:.7;animation:livePulse 1.6s ease-out infinite}
 @keyframes livePulse{0%{transform:scale(.6);opacity:.8}70%{transform:scale(1.9);opacity:0}100%{transform:scale(1.9);opacity:0}}
-#meta{margin-top:2px;color:var(--muted);font:500 11px "IBM Plex Mono",monospace}
+#meta{margin-top:2px;color:var(--muted);font:500 12px/1.6 var(--font-ar);letter-spacing:0}
 
 /* Panels & reveal */
 .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:14px;margin:22px 0 14px}
 .panel{
-  position:relative;background:var(--panel-glass);border:1px solid var(--line);
-  border-radius:var(--radius);overflow:hidden;backdrop-filter:blur(12px);
-  box-shadow:var(--shadow);
+  position:relative;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.05), transparent 36%),
+    var(--panel-glass);
+  border:1px solid var(--line);
+  border-radius:var(--radius);overflow:hidden;backdrop-filter:blur(16px) saturate(1.25);
+  box-shadow:inset 0 1px 0 var(--edge), var(--shadow);
   transition:background var(--theme-dur), border-color var(--theme-dur), transform .35s var(--ease), box-shadow .35s var(--ease);
 }
 .panel::after{
-  content:"";position:absolute;right:-18px;top:-18px;width:78px;height:78px;
+  content:"";position:absolute;inset-inline-end:-18px;top:-18px;width:78px;height:78px;
   border:1px solid var(--cyan-dim);transform:rotate(45deg);border-radius:4px;pointer-events:none;
 }
-.panel:hover{border-color:var(--line-strong)}
-.reveal{opacity:0;transform:translateY(14px);animation:riseIn .7s var(--ease) forwards}
-.reveal:nth-child(1){animation-delay:.04s}
-.reveal:nth-child(2){animation-delay:.1s}
-.reveal:nth-child(3){animation-delay:.16s}
-.reveal:nth-child(4){animation-delay:.22s}
-.reveal:nth-child(5){animation-delay:.28s}
+.panel:hover{border-color:rgba(42,212,245,.45);transform:translateY(-2px)}
+.reveal{opacity:0;transform:translateY(16px)}
+.reveal.in{animation:riseIn .75s var(--ease) forwards}
+.reveal.in:nth-child(1){animation-delay:.04s}
+.reveal.in:nth-child(2){animation-delay:.1s}
+.reveal.in:nth-child(3){animation-delay:.16s}
+.reveal.in:nth-child(4){animation-delay:.22s}
+.reveal.in:nth-child(5){animation-delay:.28s}
 @keyframes riseIn{to{opacity:1;transform:none}}
 
 .score-panel{min-height:300px;padding:28px 30px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:18px}
-.panel-label{font:600 11px "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.16em;color:var(--muted)}
+.panel-label{font:600 12px/1.65 var(--font-ar);letter-spacing:0;text-transform:none;color:var(--muted)}
 .panel-label strong{color:var(--cyan)}
 .score-title-row{display:flex;align-items:center;gap:12px;margin:14px 0 12px}
 .score-title-row .x-mark{
@@ -187,12 +205,12 @@ h1{margin:6px 0 0;font-size:clamp(20px,3vw,30px);line-height:1.05;letter-spacing
   border-radius:8px;color:#fff;flex:none;
 }
 .score-title-row .x-mark svg{width:14px;height:14px}
-.score-copy h2{font-size:clamp(34px,5vw,62px);line-height:.95;margin:0;letter-spacing:-.07em}
-.score-copy p{max-width:340px;margin:0;color:var(--muted);font-size:13px;line-height:1.55}
+.score-copy h2{font-family:var(--font-display);font-size:clamp(32px,4.6vw,52px);line-height:1.28;margin:0;letter-spacing:0;font-weight:800}
+.score-copy p{max-width:380px;margin:0;color:var(--muted);font-size:15px;line-height:1.85}
 .score-ring{
   --score:0;position:relative;width:176px;height:176px;border-radius:50%;display:grid;place-items:center;
   background:conic-gradient(var(--cyan) calc(var(--score)*1%), var(--track) 0);
-  box-shadow:0 0 0 1px var(--cyan-dim), 0 0 48px rgba(42,212,245,.16);
+  box-shadow:0 0 0 1px var(--cyan-dim), 0 0 36px var(--ring-glow), 0 0 72px rgba(42,212,245,.12);
   transition:box-shadow .4s;
 }
 .score-ring::before{content:"";position:absolute;inset:11px;border-radius:50%;background:var(--ring-hole);border:1px solid var(--line)}
@@ -202,30 +220,30 @@ h1{margin:6px 0 0;font-size:clamp(20px,3vw,30px);line-height:1.05;letter-spacing
 }
 @keyframes ringSpin{to{transform:rotate(360deg)}}
 .score-inner{position:relative;text-align:center;z-index:1}
-.score-number{font:800 68px/.9 Inter,sans-serif;letter-spacing:-.08em;font-variant-numeric:tabular-nums}
-.score-of{font:600 10px "IBM Plex Mono",monospace;color:var(--muted);letter-spacing:.18em;margin-top:8px}
-.trend{margin-top:11px;display:inline-flex;align-items:center;gap:6px;font:600 11px "IBM Plex Mono",monospace}
+.score-number{font:700 68px/1 var(--font-num);letter-spacing:0;font-variant-numeric:tabular-nums;text-shadow:0 0 22px var(--ring-glow)}
+.score-of{font:600 12px/1 var(--font-num);color:var(--muted);letter-spacing:0;margin-top:8px;direction:ltr;unicode-bidi:isolate}
+.trend{margin-top:11px;display:inline-flex;align-items:center;gap:6px;font:600 12px/1.5 var(--font-ar)}
 .trend.up{color:var(--green)}.trend.down{color:var(--red)}.trend.flat{color:var(--muted)}
 .trend-arrow{font-size:16px}
 
 .target-panel{min-height:300px;padding:28px;display:flex;flex-direction:column}
 .target-head{display:flex;justify-content:space-between;align-items:start;gap:16px}
-.target-title{font-size:28px;font-weight:800;letter-spacing:-.05em;margin-top:10px}
+.target-title{font-family:var(--font-display);font-size:30px;font-weight:800;letter-spacing:0;line-height:1.35;margin-top:10px}
 .target-state{
-  border:1px solid currentColor;padding:7px 11px;font:700 10px "IBM Plex Mono",monospace;
-  letter-spacing:.08em;border-radius:999px;
+  border:1px solid currentColor;padding:7px 12px;font:700 12px/1 var(--font-ar);
+  letter-spacing:0;text-transform:none;border-radius:999px;white-space:nowrap;
 }
 .target-state.done{color:var(--green);background:var(--green-dim)}
 .target-state.pending{color:var(--amber);background:var(--amber-dim)}
 .target-list{display:grid;gap:20px;margin-top:auto;padding-top:24px}
-.target-row-head{display:flex;justify-content:space-between;align-items:end;font-size:13px;color:var(--muted)}
-.target-row-head b{font:700 18px "IBM Plex Mono",monospace;color:var(--text)}
+.target-row-head{display:flex;justify-content:space-between;align-items:end;gap:12px;font-size:14px;line-height:1.6;color:var(--muted)}
+.target-row-head b{font:700 16px/1.3 var(--font-num);color:var(--text);direction:ltr;unicode-bidi:isolate;white-space:nowrap}
 .target-track{height:9px;margin-top:9px;background:var(--track);border:1px solid var(--line);overflow:hidden;border-radius:999px}
 .target-fill{
-  height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--cyan-2));
+  height:100%;width:0;background:linear-gradient(to inline-end,var(--cyan),var(--cyan-2));
   box-shadow:0 0 16px rgba(42,212,245,.35);transition:width 1.15s var(--ease);border-radius:inherit;
 }
-.target-fill.done{background:linear-gradient(90deg,var(--green),var(--lime));box-shadow:0 0 16px rgba(61,255,155,.3)}
+.target-fill.done{background:linear-gradient(to inline-end,var(--green),var(--lime));box-shadow:0 0 16px rgba(61,255,155,.3)}
 
 /* Stats */
 .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:14px 0}
@@ -235,30 +253,30 @@ h1{margin:6px 0 0;font-size:clamp(20px,3vw,30px);line-height:1.05;letter-spacing
   transition:transform .3s var(--ease), border-color .3s, box-shadow .3s;
 }
 .stat:hover{transform:translateY(-2px);border-color:var(--line-strong);box-shadow:var(--shadow)}
-.stat::before{content:"";position:absolute;left:0;top:0;width:42px;height:2px;background:var(--cyan);border-radius:0 0 2px 0}
+.stat::before{content:"";position:absolute;inset-inline-start:0;top:0;width:42px;height:2px;background:var(--cyan);border-radius:0 0 2px 0}
 .stat:nth-child(2)::before,.stat:nth-child(5)::before{background:var(--lime)}
-.stat-k{font:600 10px "IBM Plex Mono",monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.13em}
-.stat-v{margin-top:12px;font-size:clamp(26px,3vw,40px);font-weight:800;letter-spacing:-.06em;color:var(--text);white-space:nowrap;font-variant-numeric:tabular-nums}
+.stat-k{font:600 13px/1.55 var(--font-ar);color:var(--muted);letter-spacing:0;text-transform:none}
+.stat-v{margin-top:12px;font-family:var(--font-num);font-size:clamp(26px,3vw,40px);font-weight:700;letter-spacing:0;line-height:1.1;color:var(--text);white-space:nowrap;font-variant-numeric:tabular-nums}
 .stat:nth-child(2) .stat-v,.stat:nth-child(5) .stat-v{color:var(--lime)}
 .stat:nth-child(3) .stat-v{color:var(--cyan)}
-.stat-note{margin-top:8px;font:500 10px "IBM Plex Mono",monospace;color:var(--muted)}
+.stat-note{margin-top:8px;font:500 12px/1.55 var(--font-ar);color:var(--muted);letter-spacing:0}
 .up{color:var(--green)!important}.down{color:var(--red)!important}.flat{color:var(--muted)!important}
 
 /* Charts */
 .charts-row{display:grid;grid-template-columns:1.05fr .95fr;gap:12px;margin-bottom:18px}
 .chart-panel{padding:22px 24px}
 .chart-head{display:flex;align-items:end;justify-content:space-between;gap:14px;margin-bottom:16px}
-.chart-head h2{margin:8px 0 0;font-size:22px;letter-spacing:-.04em}
-.chart-scale{font:500 10px "IBM Plex Mono",monospace;color:var(--muted)}
+.chart-head h2{margin:8px 0 0;font-family:var(--font-display);font-size:22px;letter-spacing:0;line-height:1.4}
+.chart-scale{font:500 12px/1.5 var(--font-ar);color:var(--muted);letter-spacing:0}
 #sparkline,#day-compare{height:130px;width:100%;display:block}
-.spark-labels,.compare-labels{display:flex;justify-content:space-around;margin-top:8px;color:var(--muted);font:500 9px "IBM Plex Mono",monospace;overflow:hidden;gap:4px}
+.spark-labels,.compare-labels{display:flex;justify-content:space-around;margin-top:8px;color:var(--muted);font:500 11px/1.4 var(--font-num);overflow:hidden;gap:4px;direction:rtl}
 .spark-labels span,.compare-labels span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:9%}
 
 /* Sections */
 .section-head{margin:36px 0 14px;padding-bottom:12px;border-bottom:1px solid var(--line);display:flex;align-items:end;justify-content:space-between;gap:15px}
-.section-head h2{margin:0;font-size:21px;letter-spacing:-.04em}
-.section-index{color:var(--cyan);font:600 10px "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase}
-.section-note{color:var(--muted);font:500 10px "IBM Plex Mono",monospace;text-align:right}
+.section-head h2{margin:0;font-family:var(--font-display);font-size:22px;letter-spacing:0;line-height:1.45;position:relative}
+.section-index{color:var(--cyan);font:600 12px/1.6 var(--font-ar);letter-spacing:0;text-transform:none}
+.section-note{color:var(--muted);font:500 12px/1.6 var(--font-ar);text-align:end;letter-spacing:0}
 
 .hits-col{display:flex;flex-direction:column;gap:12px}
 .card{
@@ -271,81 +289,81 @@ h1{margin:6px 0 0;font-size:clamp(20px,3vw,30px);line-height:1.05;letter-spacing
 .identity{display:flex;gap:12px;align-items:center}
 .rank{
   width:34px;height:34px;display:grid;place-items:center;background:var(--panel-2);
-  border:1px solid var(--line);color:var(--cyan);font:600 11px "IBM Plex Mono",monospace;border-radius:8px;
+  border:1px solid var(--line);color:var(--cyan);font:600 11px var(--font-num);border-radius:8px;direction:ltr;
 }
-.name{font-weight:750;letter-spacing:-.02em}
-.card .handle{font:500 11px "IBM Plex Mono",monospace;margin-top:4px}
-.views-big{text-align:right;color:var(--lime);font:700 18px "IBM Plex Mono",monospace;white-space:nowrap}
-.views-big small{display:block;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.12em;margin-top:5px}
-.hit-target{margin:16px 0 0;display:flex;align-items:center;gap:9px;flex-wrap:wrap;font:600 10px "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.05em}
+.name{font-weight:700;letter-spacing:0;line-height:1.45}
+.card .handle{font:500 12px/1.4 var(--font-num);margin-top:4px}
+.views-big{text-align:end;color:var(--lime);font:700 18px/1.2 var(--font-num);white-space:nowrap}
+.views-big small{display:block;color:var(--muted);font:600 11px/1.5 var(--font-ar);letter-spacing:0;text-transform:none;margin-top:5px}
+.hit-target{margin:16px 0 0;display:flex;align-items:center;gap:9px;flex-wrap:wrap;font:600 12px/1.55 var(--font-ar);letter-spacing:0;text-transform:none}
 .hit-target .mark{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;font-weight:800}
 .hit-target.done{color:var(--green)}
 .hit-target.done .mark{background:var(--green);color:#001b0c}
 .hit-target.not-done{color:var(--amber)}
 .hit-target.not-done .mark{border:1px solid var(--amber);color:var(--amber)}
-.hook{color:var(--muted);font-size:14px;line-height:1.6;margin-top:15px;opacity:.95}
+.hook{color:var(--muted);font-size:15px;line-height:1.85;margin-top:15px;opacity:.95}
 html[data-theme="night"] .hook{color:#c4ced1}
 .chip{
   display:inline-flex;align-items:center;gap:7px;margin-top:12px;padding:7px 11px;
   border:1px solid rgba(42,212,245,.35);background:var(--cyan-dim);color:var(--cyan-2);
-  font:500 10px/1.4 "IBM Plex Mono",monospace;border-radius:999px;
+  font:500 12px/1.55 var(--font-ar);letter-spacing:0;border-radius:999px;
 }
 html[data-theme="day"] .chip{border-color:#9ad3e0;background:#e8f7fb;color:var(--cyan-2)}
 .chip::before{content:"▶";font-size:8px}
 .draft-block{margin-top:15px;background:var(--panel-2);border:1px solid var(--line);padding:14px;border-radius:10px}
 .draft-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.draft-label{font:600 9px "IBM Plex Mono",monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.15em}
+.draft-label{font:600 12px/1.5 var(--font-ar);color:var(--muted);letter-spacing:0;text-transform:none}
 .copy-btn{
-  border:1px solid var(--cyan);background:transparent;color:var(--cyan);padding:6px 11px;
-  font:600 9px "IBM Plex Mono",monospace;cursor:pointer;border-radius:999px;
+  border:1px solid var(--cyan);background:transparent;color:var(--cyan);padding:6px 12px;
+  font:600 12px/1 var(--font-ar);letter-spacing:0;cursor:pointer;border-radius:999px;
   transition:background .2s, color .2s, transform .2s;
 }
 .copy-btn:hover,.copy-btn.copied{background:var(--cyan);color:#001014;transform:translateY(-1px)}
-.draft-text{white-space:pre-wrap;word-break:break-word;max-height:220px;overflow:auto;color:var(--muted);font:400 11px/1.58 "IBM Plex Mono",monospace;margin:12px 0 0}
+.draft-text{white-space:pre-wrap;word-break:break-word;max-height:220px;overflow:auto;color:var(--muted);font:400 12px/1.65 var(--font-num);margin:12px 0 0;direction:ltr;text-align:left}
 /* v4/v5: TOP-10 drafts, trend keywords, trend radar, X keyword table, experiment, self-quote badge */
 .kw-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:10px}
-.kw-label{font:600 9px "IBM Plex Mono",monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-right:2px}
-.kw-chip{border:1px solid rgba(42,212,245,.35);background:var(--cyan-dim);color:var(--cyan-2);padding:3px 8px;border-radius:999px;font:500 10px/1.4 "IBM Plex Mono",monospace}
+.kw-label{font:600 12px/1.5 var(--font-ar);color:var(--muted);letter-spacing:0;text-transform:none;margin-inline-end:2px}
+.kw-chip{border:1px solid rgba(42,212,245,.35);background:var(--cyan-dim);color:var(--cyan-2);padding:3px 8px;border-radius:999px;font:500 12px/1.45 var(--font-num);direction:ltr;unicode-bidi:isolate}
 html[data-theme="day"] .kw-chip{border-color:#9ad3e0;background:#e8f7fb}
-.kw-meta{font:400 9px "IBM Plex Mono",monospace;color:var(--muted);margin-left:auto;opacity:.8}
+.kw-meta{font:400 12px/1.5 var(--font-ar);color:var(--muted);margin-inline-start:auto;opacity:.8;letter-spacing:0}
 .orig-block{margin-top:10px}
-.orig-block summary{cursor:pointer;font:600 9px "IBM Plex Mono",monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.15em}
-.orig-block pre{white-space:pre-wrap;word-break:break-word;max-height:200px;overflow:auto;color:var(--muted);font:400 11px/1.58 "IBM Plex Mono",monospace;margin:8px 0 0;opacity:.85}
-.tag.kw-trend b{color:var(--cyan-2);font-weight:600;margin-right:6px}
+.orig-block summary{cursor:pointer;font:600 12px/1.5 var(--font-ar);color:var(--muted);letter-spacing:0;text-transform:none}
+.orig-block pre{white-space:pre-wrap;word-break:break-word;max-height:200px;overflow:auto;color:var(--muted);font:400 13px/1.7 var(--font-ar);margin:8px 0 0;opacity:.85}
+.tag.kw-trend b{color:var(--cyan-2);font-weight:600;margin-inline-end:6px;font-family:var(--font-num)}
 .radar{display:flex;flex-direction:column;gap:14px}
 .radar-sum{border:1px solid rgba(42,212,245,.35);background:var(--panel-2);border-radius:12px;padding:14px 16px;font-size:13px;line-height:1.55;color:var(--text)}
 .radar-take{margin-top:8px;color:var(--muted);font-size:12.5px}
-.radar-sub{font:600 10px "IBM Plex Mono",monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.15em;margin:6px 0 -4px}
+.radar-sub{font:600 13px/1.6 var(--font-display);color:var(--muted);letter-spacing:0;text-transform:none;margin:6px 0 -4px}
 .rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:11px}
 .rcard{border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:13px 14px;min-width:0}
-.rcard h4{margin:0 0 6px;font-size:14px;line-height:1.35;color:var(--text)}
-.rmeta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font:500 10px "IBM Plex Mono",monospace;color:var(--muted)}
+.rcard h4{margin:0 0 6px;font-family:var(--font-display);font-size:15px;line-height:1.5;color:var(--text);letter-spacing:0}
+.rmeta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font:500 12px/1.55 var(--font-ar);color:var(--muted);letter-spacing:0}
 .heat{display:inline-block;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--cyan),#ff7a45);vertical-align:middle}
 .rev{margin:8px 0 0;padding:0;list-style:none;font-size:11.5px;line-height:1.45;color:var(--muted)}
 .rev li{margin-top:5px;overflow-wrap:anywhere}
 .rev a{color:var(--text);text-decoration:none;border-bottom:1px solid var(--cyan)}
-.idea-hook{margin-top:8px;padding:9px 10px;background:var(--panel-2);border-radius:8px;font:400 11.5px/1.5 "IBM Plex Mono",monospace;color:var(--text);white-space:pre-wrap}
+.idea-hook{margin-top:8px;padding:9px 10px;background:var(--panel-2);border-radius:8px;font:400 13px/1.65 var(--font-num);color:var(--text);white-space:pre-wrap;direction:ltr;text-align:left}
 .idea-row{margin-top:6px;font-size:12px;line-height:1.5;color:var(--muted)}
 .idea-row b{color:var(--text);font-weight:600}
-.idea-vis{margin-top:7px;padding:8px 10px;border-left:3px solid #ff7a45;background:rgba(255,122,69,.07);border-radius:6px;font-size:12px;line-height:1.5;color:var(--text)}
+.idea-vis{margin-top:7px;padding:8px 10px;border-inline-start:3px solid #ff7a45;background:rgba(255,122,69,.07);border-radius:6px;font-size:13px;line-height:1.7;color:var(--text)}
 .idea-vis b{color:#ff9a6b}
 .why-list{display:flex;flex-direction:column;gap:6px}
 .why-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;border:1px solid var(--line);border-radius:10px;padding:8px 11px;background:var(--panel);font-size:12px}
 .why-row .wh{font-weight:600;color:var(--text);min-width:110px}
-.why-row .wv{font:500 11px "IBM Plex Mono",monospace;color:var(--muted)}
-.vbadge{padding:2px 8px;border-radius:999px;font:600 10px "IBM Plex Mono",monospace;border:1px solid var(--line)}
+.why-row .wv{font:500 12px/1.5 var(--font-ar);color:var(--muted)}
+.vbadge{padding:2px 8px;border-radius:999px;font:600 11px/1.4 var(--font-ar);letter-spacing:0;border:1px solid var(--line)}
 .vb-trend{border-color:#2ad4f5;color:var(--cyan-2)}.vb-vis{border-color:#ff7a45;color:#ff9a6b}.vb-auth{border-color:#b48cff;color:#c7a8ff}.vb-other{color:var(--muted)}
 .mbar{display:inline-block;width:54px;height:6px;border-radius:3px;background:var(--line);overflow:hidden;vertical-align:middle}
 .mbar i{display:block;height:100%;background:var(--cyan)}
 .top10-badge{display:inline-block;margin-top:10px}
-.why-hit-line{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font:500 10px "IBM Plex Mono",monospace;color:var(--muted)}
-.radar details summary,.exp details summary{cursor:pointer;font:600 10px "IBM Plex Mono",monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+.why-hit-line{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font:500 12px/1.55 var(--font-ar);color:var(--muted);letter-spacing:0}
+.radar details summary,.exp details summary{cursor:pointer;font:600 13px/1.5 var(--font-ar);color:var(--muted);letter-spacing:0;text-transform:none}
 .radar-legend{font-size:11px;line-height:1.5;color:var(--muted);margin-top:8px}
 .xk-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
 .xk{width:100%;border-collapse:collapse;font-size:12px;min-width:560px}
-.xk th{font:600 9.5px "IBM Plex Mono",monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;text-align:left;padding:8px 9px;border-bottom:1px solid var(--line);white-space:nowrap}
-.xk td{padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--text)}
-.xk td.n{font:500 11px "IBM Plex Mono",monospace;white-space:nowrap}
+.xk th{font:600 12px/1.45 var(--font-ar);color:var(--muted);letter-spacing:0;text-transform:none;text-align:start;padding:8px 9px;border-bottom:1px solid var(--line);white-space:nowrap}
+.xk td{padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--text);text-align:start}
+.xk td.n{font:500 12px/1.4 var(--font-num);white-space:nowrap;text-align:start}
 .xk td small{display:block;color:var(--muted);font-size:10.5px}
 .xk a{color:var(--text);text-decoration:none;border-bottom:1px solid var(--cyan)}
 .xk .up{color:#3ee08f}.xk .down{color:#ff7a6b}.xk .flat{color:var(--muted)}
@@ -353,86 +371,86 @@ html[data-theme="day"] .kw-chip{border-color:#9ad3e0;background:#e8f7fb}
 .exp-tot{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
 .exp-row{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:9px 11px;background:var(--panel);font-size:12px}
 .exp-row .et{flex-basis:100%;color:var(--muted);font-size:11.5px;line-height:1.45}
-.sq{display:inline-flex;margin-left:6px;padding:1px 7px;border:1px solid var(--amber);color:var(--amber);border-radius:999px;font:700 9px "IBM Plex Mono",monospace;letter-spacing:.04em;vertical-align:middle;white-space:nowrap}
+.sq{display:inline-flex;margin-inline-start:6px;padding:1px 7px;border:1px solid var(--amber);color:var(--amber);border-radius:999px;font:700 11px/1.4 var(--font-ar);letter-spacing:0;vertical-align:middle;white-space:nowrap}
 @media(max-width:430px){.rgrid{grid-template-columns:1fr}.rcard{padding:12px}.why-row .wh{min-width:0;width:100%}.radar-sum{font-size:12.5px}}
-.post-link{display:inline-block;margin-top:14px;color:var(--text);font:600 10px "IBM Plex Mono",monospace;text-decoration:none;border-bottom:1px solid var(--cyan);padding-bottom:3px}
+.post-link{display:inline-block;margin-top:14px;color:var(--text);font:600 13px/1.4 var(--font-ar);letter-spacing:0;text-decoration:none;border-bottom:1px solid var(--cyan);padding-bottom:3px}
 .post-link.disabled{color:var(--muted);border-color:var(--muted);pointer-events:none}
 .tags{display:flex;flex-wrap:wrap;gap:8px}
-.tag{border:1px solid var(--line);background:var(--panel-2);padding:9px 12px;color:var(--muted);font-size:11px;border-radius:999px;transition:border-color .2s, color .2s}
+.tag{border:1px solid var(--line);background:var(--panel-2);padding:9px 12px;color:var(--muted);font-size:13px;line-height:1.6;border-radius:999px;transition:border-color .2s, color .2s}
 .tag:hover{border-color:var(--cyan);color:var(--cyan)}
 .tag::before{content:"# ";color:var(--cyan)}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}
 .grid .card{min-height:200px}
-.narrative{margin-top:11px;padding:20px;border-left:3px solid var(--lime);background:var(--panel-2);color:var(--muted);font-size:13px;line-height:1.65;border-radius:0 var(--radius-sm) var(--radius-sm) 0}
+.narrative{margin-top:11px;padding:20px;border-inline-start:3px solid var(--lime);background:var(--panel-2);color:var(--muted);font-size:14px;line-height:1.85;border-radius:0;border-start-end-radius:var(--radius-sm);border-end-end-radius:var(--radius-sm)}
 .muted{color:var(--muted);font-size:13px}
 .boards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px}
 .board-panel{padding:20px 22px}
-.board-panel h3{margin:8px 0 14px;font-size:18px;letter-spacing:-.03em}
+.board-panel h3{margin:8px 0 14px;font-family:var(--font-display);font-size:18px;letter-spacing:0;line-height:1.45}
 .lb-row{display:grid;grid-template-columns:36px 1fr auto;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
 .lb-row:first-of-type{border-top:0}
-.lb-handle{font:700 13px "IBM Plex Mono",monospace;color:var(--cyan)}
-.lb-meta{font:500 10px "IBM Plex Mono",monospace;color:var(--muted);margin-top:3px}
-.lb-views{font:700 13px "IBM Plex Mono",monospace;color:var(--lime);text-align:right;white-space:nowrap}
+.lb-handle{font:700 13px var(--font-num);color:var(--cyan)}
+.lb-meta{font:500 12px/1.55 var(--font-ar);color:var(--muted);margin-top:3px;letter-spacing:0}
+.lb-views{font:700 13px var(--font-num);color:var(--lime);text-align:end;white-space:nowrap}
 .lb-views small{display:block;color:var(--muted);font-size:9px;margin-top:3px;font-weight:500}
 .nohits-block{display:grid;gap:10px}
 .nohit{
   display:grid;grid-template-columns:minmax(140px,180px) 1fr auto;gap:14px;align-items:start;
   background:var(--card);border:1px solid var(--line);padding:16px 18px;position:relative;overflow:hidden;border-radius:var(--radius-sm);
 }
-.nohit::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--amber)}
-.nohit-handle{font:800 16px/1.2 "IBM Plex Mono",monospace;color:var(--amber);letter-spacing:-.02em}
-.nohit-badge{margin-top:8px;display:inline-flex;padding:4px 8px;border:1px solid var(--amber);color:var(--amber);font:700 9px "IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase;border-radius:999px}
-.nohit-reason{color:var(--muted);font-size:13px;line-height:1.55}
-.nohit-max{font:600 11px "IBM Plex Mono",monospace;color:var(--muted);text-align:right;white-space:nowrap}
-.nohit-max b{display:block;color:var(--text);font-size:16px;margin-top:4px}
+.nohit::before{content:"";position:absolute;inset-inline-start:0;top:0;bottom:0;width:3px;background:var(--amber)}
+.nohit-handle{font:700 16px/1.35 var(--font-num);color:var(--amber);letter-spacing:0}
+.nohit-badge{margin-top:8px;display:inline-flex;padding:4px 8px;border:1px solid var(--amber);color:var(--amber);font:700 11px/1.4 var(--font-ar);letter-spacing:0;text-transform:none;border-radius:999px}
+.nohit-reason{color:var(--muted);font-size:14px;line-height:1.75}
+.nohit-max{font:600 12px/1.45 var(--font-ar);color:var(--muted);text-align:end;white-space:nowrap;letter-spacing:0}
+.nohit-max b{display:block;color:var(--text);font:700 16px/1.2 var(--font-num);margin-top:4px;direction:ltr}
 footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted)}
 .privacy{background:var(--stat-bg);border:1px solid var(--line);padding:22px 24px;margin-bottom:16px;border-radius:var(--radius)}
-.privacy h3{margin:0 0 12px;font:700 12px "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
+.privacy h3{margin:0 0 12px;font:700 14px/1.5 var(--font-display);letter-spacing:0;text-transform:none;color:var(--cyan)}
 .privacy ul{margin:0;padding:0;list-style:none;display:grid;gap:9px}
-.privacy li{font:500 11px/1.55 "IBM Plex Mono",monospace;color:var(--muted);padding-left:14px;position:relative}
-.privacy li::before{content:"";position:absolute;left:0;top:7px;width:6px;height:6px;background:var(--lime);border-radius:1px}
-.footer-row{display:flex;justify-content:space-between;gap:20px;font:500 10px/1.6 "IBM Plex Mono",monospace}
+.privacy li{font:500 13px/1.75 var(--font-ar);color:var(--muted);padding-inline-start:14px;position:relative}
+.privacy li::before{content:"";position:absolute;inset-inline-start:0;top:9px;width:6px;height:6px;background:var(--lime);border-radius:1px}
+.footer-row{display:flex;justify-content:space-between;gap:20px;font:500 13px/1.7 var(--font-ar)}
 .footer-mark{color:var(--cyan)}
 
 /* Ambient bot */
-.grok-ambient{position:fixed;right:18px;bottom:18px;width:64px;height:64px;z-index:20;pointer-events:none;opacity:.92;filter:drop-shadow(0 0 14px rgba(42,212,245,.4));animation:floatBot 4.5s ease-in-out infinite}
+.grok-ambient{position:fixed;inset-inline-end:18px;bottom:18px;width:64px;height:64px;z-index:20;pointer-events:none;opacity:.92;filter:drop-shadow(0 0 14px rgba(42,212,245,.4));animation:floatBot 4.5s ease-in-out infinite}
 .grok-ambient svg{width:100%;height:100%;display:block}
 .grok-ambient .eye{animation:blink 5.2s infinite}
 .grok-ambient .antenna{transform-origin:32px 10px;animation:wiggle 3.2s ease-in-out infinite}
 @keyframes floatBot{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 @keyframes blink{0%,92%,100%{opacity:1}94%,96%{opacity:.15}}
 @keyframes wiggle{0%,100%{transform:rotate(0)}50%{transform:rotate(8deg)}}
-.grok-trail{position:fixed;right:42px;bottom:78px;width:6px;height:6px;border-radius:50%;background:var(--cyan);opacity:.35;z-index:19;pointer-events:none;animation:trail 4.5s ease-in-out infinite}
+.grok-trail{position:fixed;inset-inline-end:42px;bottom:78px;width:6px;height:6px;border-radius:50%;background:var(--cyan);opacity:.35;z-index:19;pointer-events:none;animation:trail 4.5s ease-in-out infinite}
 @keyframes trail{0%,100%{transform:translateY(0);opacity:.15}50%{transform:translateY(-18px);opacity:.45}}
 
 .lb-row.you,.roster-row.you{
   border:1px solid rgba(200,240,74,.5);background:var(--lime-dim);
-  box-shadow:inset 3px 0 0 var(--lime);padding-left:10px;margin:4px 0;border-radius:8px;
+  box-shadow:none;border-inline-start:3px solid var(--lime);padding-inline-start:10px;margin:4px 0;border-radius:8px;
 }
-.you-chip{display:inline-flex;align-items:center;margin-left:8px;padding:2px 7px;border:1px solid var(--lime);color:var(--lime);font:800 9px "IBM Plex Mono",monospace;letter-spacing:.1em;vertical-align:middle;border-radius:999px}
+.you-chip{display:inline-flex;align-items:center;margin-inline-start:8px;padding:2px 7px;border:1px solid var(--lime);color:var(--lime);font:800 11px/1 var(--font-ar);letter-spacing:0;vertical-align:middle;border-radius:999px}
 .your-day{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
-.your-day .yd-label{font:600 10px "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.14em;color:var(--lime);margin-bottom:10px}
-.your-day .yd-meta{font:500 11px "IBM Plex Mono",monospace;color:var(--muted);margin-bottom:12px}
+.your-day .yd-label{font:600 13px/1.6 var(--font-ar);letter-spacing:0;text-transform:none;color:var(--lime);margin-bottom:10px}
+.your-day .yd-meta{font:500 13px/1.7 var(--font-ar);color:var(--muted);margin-bottom:12px;letter-spacing:0}
 .your-day .yd-meta a{color:var(--cyan);text-decoration:none;border-bottom:1px solid rgba(42,212,245,.35)}
 .roster-panel{padding:20px 22px;margin-bottom:8px}
 .roster-list{display:grid;gap:0}
 .roster-row{display:grid;grid-template-columns:36px 1fr auto auto;gap:12px;align-items:center;padding:9px 8px;border-top:1px solid var(--line);border-radius:6px;transition:background .2s}
 .roster-row:first-child{border-top:0}
 .roster-row:hover{background:var(--panel-2)}
-.roster-handle{font:700 13px "IBM Plex Mono",monospace;color:var(--cyan)}
-.roster-name{font:500 10px "IBM Plex Mono",monospace;color:var(--muted);margin-top:2px}
-.roster-views{font:700 12px "IBM Plex Mono",monospace;color:var(--lime);text-align:right;white-space:nowrap}
-.roster-badge{font:700 9px "IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase;text-align:right;min-width:52px}
+.roster-handle{font:700 13px var(--font-num);color:var(--cyan)}
+.roster-name{font:500 12px/1.5 var(--font-ar);color:var(--muted);margin-top:2px;letter-spacing:0}
+.roster-views{font:700 12px var(--font-num);color:var(--lime);text-align:end;white-space:nowrap}
+.roster-badge{font:700 11px/1.4 var(--font-ar);letter-spacing:0;text-transform:none;text-align:end;min-width:52px}
 .roster-badge.hit{color:var(--green)}.roster-badge.miss{color:var(--amber)}
 
 .week-strip{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
 .week-day{
   flex:1;min-width:52px;padding:8px 6px;text-align:center;border:1px solid var(--line);
-  background:var(--panel-2);border-radius:8px;font:600 9px "IBM Plex Mono",monospace;color:var(--muted);
+  background:var(--panel-2);border-radius:8px;font:600 12px/1.45 var(--font-ar);letter-spacing:0;text-transform:none;color:var(--muted);
   transition:border-color .25s, color .25s, background .25s;
 }
 .week-day.on{border-color:var(--cyan);color:var(--cyan);background:var(--cyan-dim)}
-.week-day .wd-d{display:block;font-size:11px;color:var(--text);margin-top:3px;letter-spacing:0}
+.week-day .wd-d{display:block;font:600 11px/1.3 var(--font-num);color:var(--text);margin-top:3px;letter-spacing:0;direction:ltr}
 
 @media(max-width:980px){
   .hero,.charts-row{grid-template-columns:1fr}
@@ -440,7 +458,7 @@ footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);color:v
   .score-panel,.target-panel{min-height:0}
   .grid,.boards{grid-template-columns:1fr}
   .nohit{grid-template-columns:1fr}
-  .nohit-max{text-align:left}
+  .nohit-max{text-align:start}
 }
 /* —— xvs-mobile-2026 —— */
 @media(max-width:768px){
@@ -453,7 +471,7 @@ footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);color:v
     padding:max(8px,env(safe-area-inset-top,0px)) 0 18px;
   }
   .brand-lockup{gap:12px}
-  .header-meta{align-items:stretch;text-align:left;width:100%}
+  .header-meta{align-items:stretch;text-align:start;width:100%}
   .header-actions{flex-wrap:wrap;gap:10px;width:100%}
   .theme-toggle{
     min-height:44px;min-width:44px;padding:12px 16px;font-size:11px;
@@ -461,9 +479,9 @@ footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);color:v
   }
   .live{min-height:44px;padding:0 4px;display:inline-flex;align-items:center}
   .x-logo{width:44px;height:44px}
-  h1{font-size:clamp(18px,5.2vw,24px);word-break:break-word}
+  h1{font-size:clamp(20px,5.2vw,26px);line-height:1.45;overflow-wrap:anywhere}
   .handle{display:inline}
-  #meta{font-size:10px;line-height:1.45;word-break:break-word}
+  #meta{font-size:11px;line-height:1.65;overflow-wrap:anywhere}
   .hero,.charts-row{grid-template-columns:1fr;gap:12px;margin-top:14px}
   .score-panel,.target-panel{min-height:0}
   .score-panel{
@@ -498,14 +516,14 @@ footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);color:v
   .week-day{min-width:calc(25% - 5px);flex:1 1 calc(25% - 5px);padding:10px 4px}
   .section-head{flex-wrap:wrap;align-items:flex-start;gap:8px;margin:28px 0 12px}
   .section-head h2{font-size:18px}
-  .section-note{text-align:left;max-width:100%;font-size:9px}
+  .section-note{text-align:start;max-width:100%;font-size:12px}
   .roster-panel,.board-panel{padding:14px 12px;overflow:hidden}
   .roster-row{
     grid-template-columns:28px minmax(0,1fr) auto;gap:8px;padding:10px 4px;align-items:start;
   }
   .roster-row .roster-badge{grid-column:3;grid-row:1}
   .roster-views{
-    grid-column:2 / -1;grid-row:2;text-align:left;font-size:11px;
+    grid-column:2 / -1;grid-row:2;text-align:start;font-size:11px;
     white-space:normal;word-break:break-word;padding-left:0;
   }
   .roster-handle,.lb-handle{font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
@@ -513,11 +531,11 @@ footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);color:v
   .boards,.grid{grid-template-columns:1fr}
   .lb-row{grid-template-columns:28px minmax(0,1fr);gap:8px;align-items:start}
   .lb-views{
-    grid-column:2;text-align:left;font-size:12px;white-space:normal;word-break:break-word;margin-top:2px;
+    grid-column:2;text-align:start;font-size:12px;white-space:normal;word-break:break-word;margin-top:2px;
   }
   .card{padding:16px 14px;width:100%;max-width:100%}
   .card-top{flex-direction:column;gap:10px;align-items:stretch}
-  .views-big{text-align:left;font-size:16px;white-space:normal;word-break:break-word}
+  .views-big{text-align:start;font-size:16px;white-space:normal;word-break:break-word}
   .identity{min-width:0}
   .name{overflow:hidden;text-overflow:ellipsis}
   .draft-block{padding:12px;max-width:100%}
@@ -528,7 +546,7 @@ footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);color:v
   }
   .draft-text{max-height:180px;-webkit-overflow-scrolling:touch;font-size:10px}
   .nohit{grid-template-columns:1fr;gap:10px}
-  .nohit-max{text-align:left}
+  .nohit-max{text-align:start}
   .tags{gap:6px}
   .tag{padding:10px 12px;font-size:11px}
   .footer-row{flex-direction:column;gap:8px}
@@ -544,12 +562,12 @@ footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);color:v
   .score-number{font-size:44px}
   .target-row-head b{font-size:12px}
   .week-day{min-width:calc(33.33% - 5px);flex:1 1 calc(33.33% - 5px)}
-  .eyebrow{letter-spacing:.12em;font-size:9px}
-  .powered{font-size:9px}
+  .eyebrow{letter-spacing:0;font-size:11px}
+  .powered{font-size:11px;line-height:1.6}
 }
 @media(min-width:431px) and (max-width:620px){
-  .score-panel{grid-template-columns:1fr auto;justify-items:stretch;text-align:left}
-  .score-copy{text-align:left}
+  .score-panel{grid-template-columns:1fr auto;justify-items:stretch;text-align:start}
+  .score-copy{text-align:start}
   .score-title-row{justify-content:flex-start}
   .score-ring{margin:0}
 }
@@ -563,14 +581,39 @@ footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);color:v
 @media (prefers-reduced-motion: reduce){
   body.xvs-dash-2026{animation:none!important}
   .live-dot::after,.grok-ambient,.grok-ambient .eye,.grok-ambient .antenna,.grok-trail,
-  .score-ring::after,.target-fill,.reveal,.stat,.card,.theme-toggle,.x-logo{animation:none!important;transition:none!important}
+  .score-ring::after,.target-fill,.reveal,.stat,.card,.theme-toggle,.x-logo,
+  .aurora span,.section-head h2::after,.target-title::after,.score-copy h2::after{animation:none!important;transition:none!important}
   .reveal{opacity:1;transform:none}
+  .panel:hover,.stat:hover,.card:hover{transform:none}
+}
+.theme-toggle:focus-visible,.copy-btn:focus-visible,a:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.num{font-family:var(--font-num);font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.aurora{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.aurora span{position:absolute;border-radius:50%;filter:blur(36px);opacity:.7;animation:auroraDrift 26s ease-in-out infinite alternate}
+.aurora .a1{width:48vw;height:48vw;top:-14vw;inset-inline-start:-8vw;background:var(--aurora-a)}
+.aurora .a2{width:40vw;height:40vw;top:6vw;inset-inline-end:-12vw;background:var(--aurora-b);animation-delay:-9s}
+.aurora .a3{width:34vw;height:34vw;bottom:-12vw;inset-inline-start:18vw;background:var(--aurora-a);opacity:.45;animation-delay:-15s}
+html[data-theme="day"] .aurora span{opacity:.4;filter:blur(46px)}
+@keyframes auroraDrift{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(2%,-2%,0) scale(1.08)}}
+.section-head h2::after,.target-title::after,.score-copy h2::after{
+  content:"";position:absolute;inset-inline:0;bottom:-6px;height:1px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+  background-size:200% 100%;animation:holoScan 5.2s linear infinite;opacity:.8;
+}
+.target-title,.score-copy h2{position:relative}
+@keyframes holoScan{from{background-position:100% 0}to{background-position:-100% 0}}
+html[data-theme="day"] .score-number{text-shadow:none}
+html[data-theme="day"] .panel:hover{border-color:rgba(4,143,173,.45)}
+.score-copy h2 bdi,.section-head h2 bdi{font-family:var(--font-num)}
+@media(max-width:768px){
+  .week-day{min-width:calc(50% - 5px)}
 }
 </style>
 </head>
 <body class="xvs-dash-2026 xvs-mobile-2026">
+<div class="aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span><span class="a3"></span></div>
 <div class="grok-trail" aria-hidden="true"></div>
-<div class="grok-ambient" aria-hidden="true" title="Grok Bot (decorative)">
+<div class="grok-ambient" aria-hidden="true" title="عنصر زخرفي">
   <svg viewBox="0 0 64 64" role="img">
     <defs>
       <linearGradient id="gb" x1="0" y1="0" x2="1" y2="1">
@@ -593,132 +636,231 @@ footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);color:v
     <div class="brand-lockup">
       <div class="x-logo" aria-label="X"><svg viewBox="0 0 24 24" role="img" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817-5.967 6.817H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z"/></svg></div>
       <div>
-        <div class="eyebrow">public free experimental tool</div>
-        <h1 id="brand-title">Grok Bot X Virality Score <span class="handle" id="brand-handle">· @your_handle</span></h1>
-        <div class="powered">free public desk for creators</div>
+        <div class="eyebrow">أداة عامة مجانية تجريبية</div>
+        <h1 id="brand-title">فهد · مؤشر الانتشار على X <span class="handle" id="brand-handle">· <bdi dir="ltr">@your_handle</bdi></span></h1>
+        <div class="powered">لوحة عامة مجانية لصنّاع المحتوى</div>
       </div>
     </div>
     <div class="header-meta">
       <div class="header-actions">
-        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle day and night theme"><span class="ico" id="theme-ico">☾</span><span id="theme-label">Night</span></button>
-        <div class="live" title="Live signal"><span class="live-dot" aria-hidden="true"></span>LIVE SIGNAL</div>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="التبديل بين الوضع النهاري والليلي"><span class="ico" id="theme-ico">☾</span><span id="theme-label">ليل</span></button>
+        <div class="live" title="إشارة مباشرة"><span class="live-dot" aria-hidden="true"></span>إشارة مباشرة</div>
       </div>
-      <div id="meta">loading data…</div>
+      <div id="meta">جارٍ تحميل البيانات…</div>
     </div>
   </header>
 
   <main>
-    <section class="hero" aria-label="X Score and day target">
+    <section class="hero" aria-label="مؤشر X والهدف اليومي">
       <article class="panel score-panel reveal">
         <div class="score-copy">
-          <div class="panel-label"><strong>01 /</strong> performance signal</div>
+          <div class="panel-label"><strong><bdi dir="ltr">01</bdi></strong> إشارة الأداء</div>
           <div class="score-title-row">
             <div class="x-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817-5.967 6.817H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z"/></svg></div>
-            <h2>X Score</h2>
+            <h2>مؤشر <bdi dir="ltr">X Score</bdi></h2>
           </div>
-          <p>Daily momentum from watchlist hit volume and total view velocity.</p>
+          <p>زخم اليوم من حجم المنشورات الناجحة في قائمة المتابعة، وسرعة إجمالي المشاهدات.</p>
         </div>
-        <div class="score-ring" id="score-ring"><div class="score-inner"><div class="score-number" id="x-score" data-count="0">0</div><div class="score-of">/ 100</div><div class="trend flat" id="score-trend"><span class="trend-arrow">→</span><span>calculating</span></div></div></div>
+        <div class="score-ring" id="score-ring"><div class="score-inner"><div class="score-number" id="x-score" data-count="0">0</div><div class="score-of" dir="ltr">/ 100</div><div class="trend flat" id="score-trend"><span class="trend-arrow">→</span><span>جارٍ الحساب</span></div></div></div>
       </article>
       <article class="panel target-panel reveal">
-        <div class="target-head"><div><div class="panel-label"><strong>02 /</strong> daily objective</div><div class="target-title">Day Target</div></div><div class="target-state pending" id="target-state">◷ NOT DONE</div></div>
+        <div class="target-head"><div><div class="panel-label"><strong><bdi dir="ltr">02</bdi></strong> الهدف اليومي</div><div class="target-title">الهدف اليومي</div></div><div class="target-state pending" id="target-state">◷ لم يكتمل</div></div>
         <div class="target-list">
-          <div><div class="target-row-head"><span>Watchlist hits</span><b id="hits-target-copy">—</b></div><div class="target-track"><div class="target-fill" id="hits-progress"></div></div></div>
-          <div><div class="target-row-head"><span>Total views</span><b id="views-target-copy">—</b></div><div class="target-track"><div class="target-fill" id="views-progress"></div></div></div>
+          <div><div class="target-row-head"><span>منشورات القائمة الناجحة</span><b id="hits-target-copy">—</b></div><div class="target-track"><div class="target-fill" id="hits-progress"></div></div></div>
+          <div><div class="target-row-head"><span>إجمالي المشاهدات</span><b id="views-target-copy">—</b></div><div class="target-track"><div class="target-fill" id="views-progress"></div></div></div>
         </div>
         <div class="your-day" id="your-day">
-          <div class="yd-label" id="your-day-label">Your day · @your_handle</div>
-          <div class="yd-meta" id="your-day-meta">loading…</div>
+          <div class="yd-label" id="your-day-label">يومك · <bdi dir="ltr">@your_handle</bdi></div>
+          <div class="yd-meta" id="your-day-meta">جارٍ التحميل…</div>
           <div class="target-list" style="padding-top:0;margin-top:0;gap:16px">
-            <div><div class="target-row-head"><span>Best post vs 5k</span><b id="you-5k-copy">—</b></div><div class="target-track"><div class="target-fill" id="you-5k-progress"></div></div></div>
-            <div><div class="target-row-head"><span>Best post vs 10k ★</span><b id="you-10k-copy">—</b></div><div class="target-track"><div class="target-fill" id="you-10k-progress"></div></div></div>
+            <div><div class="target-row-head"><span>أفضل منشور مقابل <bdi class="num" dir="ltr">5K</bdi></span><b id="you-5k-copy">—</b></div><div class="target-track"><div class="target-fill" id="you-5k-progress"></div></div></div>
+            <div><div class="target-row-head"><span>أفضل منشور مقابل <bdi class="num" dir="ltr">10K</bdi> ★</span><b id="you-10k-copy">—</b></div><div class="target-track"><div class="target-fill" id="you-10k-progress"></div></div></div>
           </div>
         </div>
       </article>
     </section>
 
-    <section class="stats" id="stats" aria-label="Daily metrics"></section>
+    <section class="stats" id="stats" aria-label="مؤشرات اليوم"></section>
 
-    <div class="section-head reveal"><div><div class="section-index">03 / you vs watchlist</div><h2>Daily rank</h2></div><div class="section-note" id="roster-note">best / total · ranked by best</div></div>
-    <section class="panel roster-panel reveal" aria-label="You versus watchlist">
-      <div class="panel-label"><strong>YOU /</strong> ranked by best</div>
+    <div class="section-head reveal"><div><div class="section-index"><bdi dir="ltr">03</bdi> أنت وقائمة المتابعة</div><h2>الترتيب اليومي</h2></div><div class="section-note" id="roster-note">الأفضل / الإجمالي · حسب الأفضل</div></div>
+    <section class="panel roster-panel reveal" aria-label="أنت مقابل قائمة المتابعة">
+      <div class="panel-label"><strong>أنت</strong> حسب الأفضل</div>
       <div class="roster-list" id="day-roster"></div>
     </section>
 
-    <div class="section-head reveal"><div><div class="section-index">04 / velocity</div><h2>Charts</h2></div><div class="section-note">top hits · day compare · week coverage</div></div>
+    <div class="section-head reveal"><div><div class="section-index"><bdi dir="ltr">04</bdi> السرعة</div><h2>الرسوم</h2></div><div class="section-note">أبرز المنشورات · مقارنة اليوم · أيام الأسبوع</div></div>
     <div class="charts-row">
       <section class="panel chart-panel reveal">
-        <div class="chart-head"><div><div class="panel-label"><strong>A /</strong> velocity map</div><h2>Top hit views</h2></div><div class="chart-scale" id="chart-scale">top watchlist signals</div></div>
-        <svg id="sparkline" viewBox="0 0 1000 130" preserveAspectRatio="none" role="img" aria-label="Mini bar chart of top hit views"></svg>
+        <div class="chart-head"><div><div class="panel-label"><strong>أ</strong> خريطة السرعة</div><h2>مشاهدات الأعلى</h2></div><div class="chart-scale" id="chart-scale">أبرز إشارات القائمة</div></div>
+        <svg id="sparkline" viewBox="0 0 1000 130" preserveAspectRatio="none" role="img" aria-label="رسم أعمدة لمشاهدات أعلى المنشورات"></svg>
         <div class="spark-labels" id="spark-labels"></div>
       </section>
       <section class="panel chart-panel reveal">
-        <div class="chart-head"><div><div class="panel-label"><strong>B /</strong> day compare</div><h2>Best vs watchlist</h2></div><div class="chart-scale" id="compare-scale">ranked by best</div></div>
-        <svg id="day-compare" viewBox="0 0 1000 130" preserveAspectRatio="none" role="img" aria-label="Day comparison bar chart"></svg>
+        <div class="chart-head"><div><div class="panel-label"><strong>ب</strong> مقارنة اليوم</div><h2>الأفضل مقابل القائمة</h2></div><div class="chart-scale" id="compare-scale">حسب الأفضل</div></div>
+        <svg id="day-compare" viewBox="0 0 1000 130" preserveAspectRatio="none" role="img" aria-label="رسم مقارنة اليوم"></svg>
         <div class="compare-labels" id="compare-labels"></div>
-        <div class="week-strip" id="week-strip" aria-label="Week days included"></div>
+        <div class="week-strip" id="week-strip" aria-label="أيام الأسبوع المشمولة"></div>
       </section>
     </div>
 
-    <div class="section-head reveal"><div><div class="section-index">05 / leaderboards</div><h2>Week · Month</h2></div><div class="section-note" id="lb-note">best / total (≥5k hits)</div></div>
-    <section class="boards" aria-label="Week and month leaderboards">
-      <article class="panel board-panel reveal"><div class="panel-label"><strong>W /</strong> rolling week</div><h3 id="week-title">Week</h3><div id="week-board"></div></article>
-      <article class="panel board-panel reveal"><div class="panel-label"><strong>M /</strong> calendar month</div><h3 id="month-title">Month</h3><div id="month-board"></div></article>
+    <div class="section-head reveal"><div><div class="section-index"><bdi dir="ltr">05</bdi> لوحات الصدارة</div><h2>الأسبوع · الشهر</h2></div><div class="section-note" id="lb-note">الأفضل / الإجمالي · منشورات <bdi class="num" dir="ltr">≥5K</bdi></div></div>
+    <section class="boards" aria-label="لوحتا الأسبوع والشهر">
+      <article class="panel board-panel reveal"><div class="panel-label"><strong>أ</strong> أسبوع متحرّك</div><h3 id="week-title">الأسبوع</h3><div id="week-board"></div></article>
+      <article class="panel board-panel reveal"><div class="panel-label"><strong>ش</strong> شهر تقويمي</div><h3 id="month-title">الشهر</h3><div id="month-board"></div></article>
     </section>
 
-    <div class="section-head reveal"><div><div class="section-index">06 / watchlist</div><h2>Top hits</h2></div><div class="section-note" id="hits-note">self-quotes count (badge) · drafts for TOP-10 only</div></div>
+    <div class="section-head reveal"><div><div class="section-index"><bdi dir="ltr">06</bdi> قائمة المتابعة</div><h2>أبرز المنشورات</h2></div><div class="section-note" id="hits-note">الاقتباس الذاتي يُحتسب (شارة) · المسودات لأفضل 10 فقط</div></div>
     <section class="hits-col" id="hits"></section>
 
-    <div class="section-head reveal"><div><div class="section-index">07 / pattern layer</div><h2>Pattern brief</h2></div><div class="section-note">keywords + recurring hooks and structures</div></div>
+    <div class="section-head reveal"><div><div class="section-index"><bdi dir="ltr">07</bdi> طبقة الأنماط</div><h2>ملخص الأنماط</h2></div><div class="section-note">كلمات مفتاحية وخطافات وبنى متكررة</div></div>
     <section class="tags" id="patterns"></section>
-    <div class="section-head reveal" id="trend-kw-head" hidden><div><div class="section-index">07b / trend keywords</div><h2>Trend keywords · 24h</h2></div><div class="section-note">ranked from day hits, last 24h, outsiders and the brief · woven into drafts</div></div>
+    <div class="section-head reveal" id="trend-kw-head" hidden><div><div class="section-index"><bdi dir="ltr">07b</bdi> كلمات الترند</div><h2>كلمات الترند · <bdi class="num" dir="ltr">24</bdi> ساعة</h2></div><div class="section-note">مرتّبة من منشورات اليوم وآخر 24 ساعة ومن خارج القائمة والموجز · ومضمّنة في المسودات</div></div>
     <section class="tags" id="trend-kw" hidden></section>
 
-    <div class="section-head reveal"><div><div class="section-index">08 / outside radar</div><h2>AI virals · last 48h</h2></div><div class="section-note" id="viral-count">20 outsider signals</div></div>
+    <div class="section-head reveal"><div><div class="section-index"><bdi dir="ltr">08</bdi> رادار الخارج</div><h2>الرائج في الذكاء الاصطناعي · آخر <bdi class="num" dir="ltr">48</bdi> ساعة</h2></div><div class="section-note" id="viral-count"><bdi class="num" dir="ltr">20</bdi> إشارة من خارج القائمة</div></div>
     <section class="grid" id="virals"></section>
     <div class="narrative" id="virals-narrative" hidden></div>
 
-    <div class="section-head reveal" id="radar-head" hidden><div><div class="section-index">08b / trend radar</div><h2>Trends and post ideas</h2></div><div class="section-note" id="radar-note">trends 24/48h · X keywords · ideas · why it hit</div></div>
+    <div class="section-head reveal" id="radar-head" hidden><div><div class="section-index"><bdi dir="ltr">08b</bdi> رادار الترند</div><h2>الترندات وأفكار المنشورات</h2></div><div class="section-note" id="radar-note">ترندات 24/48 ساعة · كلمات X · أفكار · لماذا نجح</div></div>
     <section class="radar" id="radar" hidden></section>
 
-    <div class="section-head reveal" id="exp-head" hidden><div><div class="section-index">08c / experiment</div><h2>Experiment: trend vs non-trend</h2></div><div class="section-note" id="exp-note">your posts · same-format comparison</div></div>
+    <div class="section-head reveal" id="exp-head" hidden><div><div class="section-index"><bdi dir="ltr">08c</bdi> التجربة</div><h2>التجربة: ترند مقابل غير ترند</h2></div><div class="section-note" id="exp-note">منشوراتك · مقارنة داخل الوسيط نفسه</div></div>
     <section class="exp" id="exp" hidden></section>
 
-    <div class="section-head reveal"><div><div class="section-index">09 / below floor</div><h2>No hits ≥5k</h2></div><div class="section-note">handles + likely reasons</div></div>
-    <section class="nohits-block" id="nohits" aria-label="Accounts without 5k hits"></section>
+    <div class="section-head reveal"><div><div class="section-index"><bdi dir="ltr">09</bdi> تحت الحد</div><h2>بلا منشور ناجح <bdi class="num" dir="ltr">≥5K</bdi></h2></div><div class="section-note">الحسابات والأسباب المرجّحة</div></div>
+    <section class="nohits-block" id="nohits" aria-label="حسابات بلا منشور ناجح عند 5 آلاف مشاهدة"></section>
   </main>
 
   <footer class="reveal">
     <div class="privacy">
-      <h3>Privacy / Experimental</h3>
+      <h3>الخصوصية / تجريبي</h3>
       <ul>
-        <li>Grok Bot X Virality Score is a free public experimental tool for creators, not a company product.</li>
-        <li>No personal data is collected from visitors. No accounts, no analytics IDs, no email capture.</li>
-        <li>No cookies for tracking. Theme preference may stay in localStorage on your device only.</li>
-        <li>X content is scraped read-only via the operator session on the box. Visitor accounts are never used or requested.</li>
-        <li>Not affiliated with X Corp / Twitter, Inc. or any of their products.</li>
-        <li>Third-party posts remain the property of their authors. This board only mirrors public signals for research.</li>
-        <li>Provided as-is, with no warranty of accuracy, uptime, or fitness for any purpose.</li>
+        <li>«فهد · مؤشر الانتشار على X» أداة عامة مجانية تجريبية لصنّاع المحتوى، وليست منتجًا تجاريًا.</li>
+        <li>لا نجمع أي بيانات شخصية من الزوار. لا حسابات، ولا معرّفات تحليلات، ولا جمع للبريد.</li>
+        <li>لا ملفات تتبع. قد يُحفظ تفضيل المظهر في التخزين المحلي على جهازك فقط.</li>
+        <li>يُقرأ محتوى X للقراءة فقط عبر جلسة المشغّل. لا تُستخدم حسابات الزوار ولا تُطلب.</li>
+        <li>غير تابع لشركة <bdi dir="ltr">X Corp</bdi> أو <bdi dir="ltr">Twitter, Inc.</bdi> ولا لأي من منتجاتهما.</li>
+        <li>منشورات الآخرين تبقى ملكًا لأصحابها. تعرض هذه اللوحة الإشارات العامة لأغراض المتابعة والبحث فقط.</li>
+        <li>تُقدَّم كما هي، دون ضمان للدقة أو الاستمرارية أو الملاءمة لأي غرض.</li>
       </ul>
     </div>
     <div class="footer-row">
-      <span>Read-only browser signal desk · refreshes with each daily digest · powered by Grok Bot</span>
-      <span class="footer-mark">Grok Bot X Virality Score</span>
+      <span>لوحة إشارات للقراءة فقط · تتجدد مع الملخص اليومي · بإشراف <bdi dir="ltr">Grok Bot</bdi></span>
+      <span class="footer-mark">فهد · مؤشر الانتشار على X</span>
     </div>
   </footer>
 </div>
 <script>
 const DASHBOARD_TARGETS = Object.freeze({ hits: 12, views: 100000, minHitViews: 5000, starViews: 10000 });
 const THEME_KEY = 'xvs-theme';
+const BRAND_AR = 'فهد · مؤشر الانتشار على X';
+const MONTHS_AR = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+const DOW_AR = ['أحد','إثن','ثلا','أرب','خمي','جمع','سبت'];
+const TZ_AR = {'Asia/Riyadh':'آسيا/الرياض','Europe/Moscow':'أوروبا/موسكو','UTC':'UTC','Asia/Dubai':'آسيا/دبي','Asia/Kuwait':'آسيا/الكويت'};
+const CHIP_AR = {
+  trend:'ترند', visual:'بصري', 'author/audience':'الحساب والجمهور', author:'الحساب',
+  'coincidence/other':'مصادفة', 'non-trend':'غير ترند', 'self-quote':'اقتباس ذاتي',
+  'no data':'لا بيانات', up:'صاعد', down:'هابط', flat:'ثابت', new:'جديد',
+  video:'فيديو', image:'صورة', text:'نص', screencast:'تسجيل شاشة', carousel:'معرض', meme:'ميم',
+  watchlist:'قائمة المتابعة', outsider:'من خارج القائمة', fresh:'حديث',
+  '24h':'آخر 24 ساعة', trend_input:'مدخل الترند', 'x-keywords':'كلمات X'
+};
 let CONFIG_DEFAULT_THEME = null;
+let revealIO = null;
+function setupReveal(){
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce||!('IntersectionObserver' in window)){
+    revealIO={observe(el){el.classList.add('in')},unobserve(){}};
+  }else{
+    revealIO=new IntersectionObserver((entries)=>{
+      entries.forEach(en=>{
+        if(!en.isIntersecting) return;
+        en.target.classList.add('in');
+        revealIO.unobserve(en.target);
+      });
+    },{threshold:0.08,rootMargin:'0px 0px -4% 0px'});
+  }
+  watchReveal(document);
+  setTimeout(()=>{
+    document.querySelectorAll('.reveal:not(.in)').forEach(el=>{
+      if(el.hidden) return;
+      const r=el.getBoundingClientRect();
+      const vh=window.innerHeight||document.documentElement.clientHeight;
+      if(r.bottom>0 && r.top<vh) el.classList.add('in');
+    });
+  }, 480);
+}
+function watchReveal(root){
+  if(!root||!root.querySelectorAll) return;
+  const nodes=[];
+  if(root.classList&&root.classList.contains('reveal')) nodes.push(root);
+  root.querySelectorAll('.reveal').forEach(el=>nodes.push(el));
+  nodes.forEach(el=>{
+    if(el.classList.contains('in')) return;
+    if(revealIO) revealIO.observe(el); else el.classList.add('in');
+  });
+}
+function revealShow(el){
+  if(!el) return;
+  el.hidden=false;
+  if(!revealIO){el.classList.add('in');return}
+  revealIO.observe(el);
+  requestAnimationFrame(()=>{
+    const r=el.getBoundingClientRect();
+    const vh=window.innerHeight||document.documentElement.clientHeight;
+    if(r.bottom>0&&r.top<vh) el.classList.add('in');
+  });
+}
+function arDay(iso){
+  const m=String(iso||'').match(/(\d{4})-(\d{2})-(\d{2})/);
+  if(!m) return iso?String(iso):'—';
+  return `${+m[3]} ${MONTHS_AR[+m[2]-1]} ${m[1]}`;
+}
+function arMonthDay(iso){
+  const m=String(iso||'').match(/(\d{4})-(\d{2})-(\d{2})/);
+  if(!m) return String(iso||'');
+  return `${+m[3]} ${MONTHS_AR[+m[2]-1]}`;
+}
+function formatUpdated(raw,tz){
+  if(!raw) return '—';
+  const s=String(raw);
+  const hasTime=/T\d|\d{2}:\d{2}/.test(s);
+  const dt=new Date(hasTime?s:s+'T12:00:00+03:00');
+  if(Number.isNaN(dt.getTime())) return s;
+  try{
+    const fmt=new Intl.DateTimeFormat('en-GB',{timeZone:tz,day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false});
+    const bag={};
+    for(const p of fmt.formatToParts(dt)) bag[p.type]=p.value;
+    const mon=MONTHS_AR[(+bag.month)-1]||bag.month;
+    return `${+bag.day} ${mon}، ${bag.hour}:${bag.minute}`;
+  }catch(e){return s}
+}
+function weekTitle(range){
+  if(!range||!range.length) return 'أسبوع متحرّك';
+  const a=arMonthDay(range[0]), b=arMonthDay(range[range.length-1]);
+  return a===b?`أسبوع متحرّك · ${a}`:`أسبوع متحرّك · ${a} – ${b}`;
+}
+function monthTitle(range){
+  const m=String(range&&range[0]||'').match(/(\d{4})-(\d{2})-(\d{2})/);
+  if(!m) return 'الشهر';
+  const last=String(range[range.length-1]||'').match(/(\d{4})-(\d{2})-(\d{2})/);
+  const head=`${MONTHS_AR[+m[2]-1]} ${m[1]}`;
+  if(last&&(last[1]!==m[1]||last[2]!==m[2])) return `${head} – ${MONTHS_AR[+last[2]-1]} ${last[1]}`;
+  return `${head} · من ${+m[3]} ${MONTHS_AR[+m[2]-1]}`;
+}
 function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
+function ltr(s){return `<bdi class="num" dir="ltr">${s}</bdi>`}
+function auto(s){return `<bdi dir="auto">${s}</bdi>`}
+function chipLabel(s){const k=String(s==null?'':s).trim();return CHIP_AR[k]||CHIP_AR[k.toLowerCase()]||k}
+function hasArabic(s){return /[\u0600-\u06FF]/.test(String(s||''))}
+function brandTitle(raw){const t=String(raw||'').trim();if(hasArabic(t))return t;return BRAND_AR}
 function num(n){n=Number(n);return Number.isFinite(n)?n:0}
 function fmt(n){n=num(n);if(n===0)return'0';if(n>=1e6)return(n/1e6).toFixed(n>=1e7?0:2).replace(/\.0+$/,'').replace(/(\.\d)0$/,'$1')+'M';if(n>=1e3)return(n/1e3).toFixed(n>=1e5?0:1).replace(/\.0$/,'')+'K';return String(Math.round(n))}
 function fmtBestTotal(best,total){const b=num(best),t=total==null?b:num(total);if(!b&&!t)return'—';return `${fmt(b)} / ${fmt(t)}`}
 function pct(value,target){return target?Math.round(value/target*100):0}
 function scoreFor(hits,views){return Math.round(100*(.45*Math.min(hits/DASHBOARD_TARGETS.hits,1)+.55*Math.min(views/DASHBOARD_TARGETS.views,1)))}
 function rawIndex(hits,views){return Math.round(100*(.45*(hits/DASHBOARD_TARGETS.hits)+.55*(views/DASHBOARD_TARGETS.views)))}
-function trendMarkup(delta,label){const dir=delta>0?'up':delta<0?'down':'flat';const arrow=delta>0?'↑':delta<0?'↓':'→';const d=delta===0?'on pace':`${delta>0?'+':''}${delta}`;return{dir,html:`<span class="trend-arrow">${arrow}</span><span>${d} ${label}</span>`}}
+function trendMarkup(delta,label){const dir=delta>0?'up':delta<0?'down':'flat';const arrow=delta>0?'↑':delta<0?'↓':'→';const pace=delta===0?'ضمن المسار ':'';const numHtml=delta===0?'':`${ltr(`${delta>0?'+':''}${delta}`)} `;return{dir,html:`<span class="trend-arrow">${arrow}</span>${pace}${numHtml}<span>${esc(label)}</span>`}}
 function easeOutCubic(t){return 1-Math.pow(1-t,3)}
 function countUp(el, to, {duration=1100, format=v=>String(Math.round(v)), decimals=0}={}){
   if(!el) return; const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches; const start=performance.now(); const from=0;
@@ -731,7 +873,7 @@ function applyTheme(theme, {persist=true}={}){
   document.documentElement.setAttribute('data-theme', t);
   document.querySelector('meta[name="theme-color"]')?.setAttribute('content', t==='day'?'#f3f6f8':'#07090b');
   const label=document.getElementById('theme-label'); const ico=document.getElementById('theme-ico');
-  if(label) label.textContent=t==='day'?'Day':'Night';
+  if(label) label.textContent=t==='day'?'نهار':'ليل';
   if(ico) ico.textContent=t==='day'?'☀':'☾';
   if(persist){ try{localStorage.setItem(THEME_KEY,t)}catch(e){} }
 }
@@ -757,36 +899,37 @@ function resolveThemeFromData(d){
   const pref=String(ui.default_theme||d.default_theme||'').toLowerCase();
   if(pref==='day'||pref==='night'){ applyTheme(pref, {persist:false}); }
 }
-function topBadge(r){return r&&r.top10_rank?`<span class="vbadge vb-trend top10-badge">TOP-10 · #${num(r.top10_rank)}</span>`:''}
-function sqHtml(r){if(!r)return'';if(r.excluded_reason)return`<span class="sq" title="not counted">${esc(r.excluded_reason)}</span>`;if(r.self_quote)return`<span class="sq" title="self-quote: counts like any original">${esc(r.self_quote_label||'self-quote')}</span>`;return''}
-function draftBlock(h,draftId){const draft=h.draft_en||'';if(!draft)return h.original_en?`<details class="orig-block"><summary>Original · EN</summary><pre>${esc(h.original_en)}</pre></details>`:'';return`<div class="draft-block"><div class="draft-head"><span class="draft-label">Draft · EN${h.top10_rank?' · TOP-10 #'+num(h.top10_rank):''}</span><button type="button" class="copy-btn" data-draft-id="${draftId}">COPY DRAFT</button></div><pre class="draft-text" id="${draftId}">${esc(draft)}</pre>${(h.draft_keywords||[]).length?`<div class="kw-row"><span class="kw-label">keywords:</span>${h.draft_keywords.map(k=>`<span class="kw-chip">${esc(k)}</span>`).join('')}${h.draft_check?`<span class="kw-meta">overlap 4-gram ${Math.round(num(h.draft_check.g4_overlap)*100)}%</span>`:''}</div>`:''}${h.original_en?`<details class="orig-block"><summary>Original · EN</summary><pre>${esc(h.original_en)}</pre></details>`:''}</div>`}
+function topBadge(r){return r&&r.top10_rank?`<span class="vbadge vb-trend top10-badge">أفضل 10 · ${ltr('#'+num(r.top10_rank))}</span>`:''}
+function sqHtml(r){if(!r)return'';if(r.excluded_reason)return`<span class="sq" dir="auto" title="غير محتسب">${esc(r.excluded_reason)}</span>`;if(r.self_quote){const label=r.self_quote_label&&!/self-?quote/i.test(r.self_quote_label)?r.self_quote_label:'اقتباس ذاتي';return `<span class="sq" title="اقتباس ذاتي: يُحتسب كأي منشور أصلي">${esc(label)}</span>`}return''}
+function origBlock(h){return h.original_en?`<details class="orig-block"><summary>النص الأصلي</summary><pre dir="auto">${esc(h.original_en)}</pre></details>`:''}
+function draftBlock(h,draftId){const draft=h.draft_en||'';if(!draft)return origBlock(h);const kw=(h.draft_keywords||[]);const kwRow=kw.length?`<div class="kw-row"><span class="kw-label">كلمات مفتاحية:</span>${kw.map(k=>`<span class="kw-chip">${ltr(esc(k))}</span>`).join('')}${h.draft_check?`<span class="kw-meta">تداخل الرباعيات ${ltr(Math.round(num(h.draft_check.g4_overlap)*100)+'%')}</span>`:''}</div>`:'';const top=h.top10_rank?` · ${ltr('TOP-10 #'+num(h.top10_rank))}`:'';return`<div class="draft-block"><div class="draft-head"><span class="draft-label">مسودة${top}</span><button type="button" class="copy-btn" data-draft-id="${draftId}">انسخ المسودة</button></div><pre class="draft-text" dir="ltr" id="${draftId}">${esc(draft)}</pre>${kwRow}${origBlock(h)}</div>`}
 function vbClass(v){v=String(v||'');return /^(trend|тренд)$/.test(v)?'vb-trend':/^(visual|визуал)$/.test(v)?'vb-vis':/^(author|автор)/.test(v)?'vb-auth':'vb-other'}
-function whyLine(w){if(!w)return'';return`<div class="why-hit-line"><span>trend match</span><span class="mbar"><i style="width:${num(w.trend_match)}%"></i></span><b>${num(w.trend_match)}%</b><span class="vbadge ${vbClass(w.verdict)}">${esc(w.verdict)}</span>${(w.matched_keywords||[]).slice(0,5).map(k=>`<span class="kw-chip">${esc(k)}</span>`).join('')}</div>`}
+function whyLine(w){if(!w)return'';return`<div class="why-hit-line"><span>تطابق الترند</span><span class="mbar"><i style="width:${num(w.trend_match)}%"></i></span>${ltr('<b>'+num(w.trend_match)+'%</b>')}<span class="vbadge ${vbClass(w.verdict)}">${esc(chipLabel(w.verdict))}</span>${(w.matched_keywords||[]).slice(0,5).map(k=>`<span class="kw-chip">${ltr(esc(k))}</span>`).join('')}</div>`}
 function kfmt(n){n=num(n);return n>=1e6?(n/1e6).toFixed(2)+'M':n>=1e3?(n/1e3).toFixed(1)+'K':String(n)}
 function bindCopy(root){(root||document).querySelectorAll('.copy-btn').forEach(btn=>{if(btn.dataset.bound)return;btn.dataset.bound='1';btn.addEventListener('click',()=>{const t=document.getElementById(btn.dataset.draftId);copyDraft(btn,t?t.textContent:'')})})}
-function renderTrendKw(d){const tk=((d.trend_keywords||{}).keywords)||[];const el=document.getElementById('trend-kw'),hd=document.getElementById('trend-kw-head');if(!el||!tk.length)return;el.innerHTML=tk.map(k=>`<span class="tag kw-trend"><b>${esc(String(k.rank||''))}</b>${esc(k.keyword)}</span>`).join('');el.hidden=false;hd.hidden=false}
+function renderTrendKw(d){const tk=((d.trend_keywords||{}).keywords)||[];const el=document.getElementById('trend-kw'),hd=document.getElementById('trend-kw-head');if(!el||!tk.length)return;el.innerHTML=tk.map(k=>`<span class="tag kw-trend" dir="ltr"><b>${esc(String(k.rank||''))}</b>${esc(k.keyword)}</span>`).join('');revealShow(el);revealShow(hd)}
 function renderRadar(r,narrText){const el=document.getElementById('radar'),hd=document.getElementById('radar-head');if(!r||!el)return;
  const S=r.summary||{};const st=(S.stats||{}).all||{};const vd=st.verdicts||{};
- let h=`<div class="radar-sum">${S.top10_line?`<div style="font-weight:600;margin-bottom:6px"><span class="vbadge vb-trend">TOP-10</span> ${esc(S.top10_line)}</div>`:''}<div>${esc(S.headline||'')}</div><div class="radar-take">→ ${esc(S.takeaway||'')}</div><div class="rmeta" style="margin-top:8px">${Object.entries(vd).map(([k,v])=>`<span class="vbadge ${vbClass(k)}">${esc(k)} ${v}</span>`).join('')}<span>corpus: ${num((r.corpus||{}).posts)} posts ≥${kfmt((r.corpus||{}).min_views)} · 48h window ${esc((r.window||{}).label48||'')}</span></div></div>`;
- const XK=r.x_keywords;if(XK&&(XK.keywords||[]).length){const tc=t=>/up|new|↑/.test(t||'')?'up':/down|↓/.test(t||'')?'down':'flat';const ar=t=>({up:'↑ up',down:'↓ down',flat:'→ flat',new:'new'})[t]||t||'';
-  h+=`<div class="radar-sub">X keywords · last 24h vs previous 24h · sample (≤${num(XK.sample_size_per_call||25)} posts per window)</div><div class="xk-wrap"><table class="xk"><thead><tr><th>#</th><th>keyword</th><th>24h: total · median</th><th>prev 24h</th><th>48h</th><th>trend</th><th>top post</th></tr></thead><tbody>${XK.keywords.map(k=>{const tp=(k.w24||{}).top||(k.w48||{}).top;return `<tr><td class="n">${num(k.rank)}</td><td><b>${esc(k.keyword)}</b></td><td class="n">${kfmt((k.w24||{}).total)} · ${kfmt((k.w24||{}).median)}<small>${num((k.w24||{}).n)} posts${k.top_share!=null?` · top post ${Math.round(k.top_share*100)}%`:''}</small></td><td class="n">${kfmt((k.prev24||{}).total)}<small>${num((k.prev24||{}).n)} posts</small></td><td class="n">${kfmt((k.w48||{}).total)}</td><td class="n ${tc(k.trend)}">${esc(ar(k.trend))}${k.change!=null?` ×${k.change}`:''}</td><td>${tp?`<a href="${esc(tp.url)}" target="_blank" rel="noopener">${esc(tp.handle)} · ${kfmt(tp.views)}</a>`:'—'}</td></tr>`}).join('')}</tbody></table></div><details><summary>method (${num(XK.calls)} searches, ${esc((XK.fetched_at||'').slice(0,16).replace('T',' '))} UTC)</summary><div class="radar-legend">${esc(XK.method||'')}</div></details>`;}
- h+=`<div class="radar-sub">A / Trends 24-48h</div><div class="rgrid">${(r.topics||[]).map((t,i)=>`<article class="rcard"><h4>${i+1}. ${esc(t.name)}</h4><div class="rmeta"><span>heat ${num(t.heat)}</span><span class="heat" style="width:${Math.max(6,num(t.heat)*0.9)}px"></span><span>${esc(t.momentum)}</span></div><div class="rmeta" style="margin-top:4px"><span>24h: ${num(t.posts_24h)} posts · ${kfmt(t.views_24h)}</span><span>48h: ${num(t.posts_48h)} · ${kfmt(t.views_48h)}</span></div><div class="kw-row">${(t.keywords||[]).map(k=>`<span class="kw-chip">${esc(k)}</span>`).join('')}</div><ul class="rev">${(t.evidence||[]).map(e=>`<li><a href="${esc(e.url||'#')}" target="_blank" rel="noopener">${esc(e.handle)} · ${kfmt(e.views)}</a> ${esc(e.hook||'')}</li>`).join('')}</ul></article>`).join('')}</div>`;
- h+=`<div class="radar-sub">B / Post ideas · trend + hook + visual (X keywords first, then watchlist virals)</div><div class="rgrid">${(r.ideas||[]).map((x,i)=>`<article class="rcard"><h4>${i+1}. ${esc(x.title)}</h4><div class="rmeta"><span class="vbadge">${esc(x.format)}</span>${x.x_rank?`<span class="vbadge vb-trend">X keyword #${num(x.x_rank)}</span>`:`<span class="vbadge vb-other">${esc(x.source||'watchlist')}</span>`}<span>${esc(x.topic)}</span></div><div class="idea-hook" id="idea-${i}">${esc(x.hook_en)}</div>${x.visual?`<div class="idea-vis"><b>${/image|carousel|meme/.test(x.visual_type||'')?'🖼':'🎬'} Visual (${esc(x.visual_type||'')}):</b> ${esc(x.visual)}</div>`:''}<div class="idea-row"><b>Angle:</b> ${esc(x.angle)}</div><div class="idea-row"><b>Why it should work:</b> ${esc(x.why)}</div><div class="kw-row"><span class="kw-label">keywords:</span>${(x.keywords||[]).map(k=>`<span class="kw-chip">${esc(k)}</span>`).join('')}</div><button type="button" class="copy-btn" style="margin-top:8px" data-draft-id="idea-${i}">COPY HOOK</button></article>`).join('')}</div>`;
- if((r.articles||[]).length)h+=`<div class="radar-sub">B2 / Article ideas (long-form) on the top keywords</div><div class="rgrid">${r.articles.map((a,i)=>`<article class="rcard"><h4>${i+1}. ${esc(a.title)}</h4><div class="idea-row"><b>Thesis:</b> ${esc(a.thesis)}</div><ol class="rev" style="padding-left:18px;list-style:decimal">${(a.outline||[]).map(o=>`<li>${esc(o)}</li>`).join('')}</ol><div class="idea-vis"><b>🖼 Visual:</b> ${esc(a.visual)}</div><div class="idea-row"><b>Why:</b> ${esc(a.why)}</div><div class="kw-row"><span class="kw-label">keywords:</span>${(a.keywords||[]).map(k=>`<span class="kw-chip">${esc(k)}</span>`).join('')}</div></article>`).join('')}</div>`;
- h+=`<div class="radar-sub">C / Why it hit</div><div class="why-list">${(r.why_hit||[]).slice().sort((a,b)=>num(b.views)-num(a.views)).map(w=>`<div class="why-row"><span class="wh">${esc(w.handle)} <span class="wv">${esc(w.lane)}</span>${w.self_quote?'<span class="sq">self-quote</span>':''}</span><span class="wv">${kfmt(w.views)}</span><span class="mbar"><i style="width:${num(w.trend_match)}%"></i></span><b class="wv">${num(w.trend_match)}%</b><span class="vbadge ${vbClass(w.verdict)}">${esc(w.verdict)}</span><span class="wv">media: ${esc(w.media)}</span>${(w.matched_keywords||[]).slice(0,4).map(k=>`<span class="kw-chip">${esc(k)}</span>`).join('')}${w.note?`<span class="wv">${esc(w.note)}</span>`:''}</div>`).join('')}</div>`;
- h+=`<details><summary>Method / legend</summary><div class="radar-legend">${esc(r.legend||'')}</div></details>`;
- if(narrText)h+=`<details><summary>raw summary (outsiders)</summary><div class="radar-legend">${esc(narrText)}</div></details>`;
- el.innerHTML=h;el.hidden=false;hd.hidden=false;bindCopy(el)}
+ let h=`<div class="radar-sum">${S.top10_line?`<div style="font-weight:600;margin-bottom:6px"><span class="vbadge vb-trend">أفضل 10</span> ${auto(esc(S.top10_line))}</div>`:''}<div dir="auto">${esc(S.headline||'')}</div><div class="radar-take" dir="auto">→ ${esc(S.takeaway||'')}</div><div class="rmeta" style="margin-top:8px">${Object.entries(vd).map(([k,v])=>`<span class="vbadge ${vbClass(k)}">${esc(chipLabel(k))} ${ltr(String(v))}</span>`).join('')}<span>المتن: ${ltr(String(num((r.corpus||{}).posts)))} منشورًا ≥${ltr(kfmt((r.corpus||{}).min_views))} · نافذة 48 ساعة ${auto(esc((r.window||{}).label48||''))}</span></div></div>`;
+ const XK=r.x_keywords;if(XK&&(XK.keywords||[]).length){const tc=t=>/up|new|↑/.test(t||'')?'up':/down|↓/.test(t||'')?'down':'flat';const ar=t=>({up:'↑ صاعد',down:'↓ هابط',flat:'→ ثابت',new:'جديد'})[t]||t||'';
+  h+=`<div class="radar-sub">كلمات X · آخر 24 ساعة مقابل الـ 24 ساعة السابقة · عينة (≤${ltr(String(num(XK.sample_size_per_call||25)))} منشورًا لكل نافذة)</div><div class="xk-wrap"><table class="xk"><thead><tr><th>#</th><th>الكلمة</th><th>24 ساعة: الإجمالي · الوسيط</th><th>24 ساعة السابقة</th><th>48 ساعة</th><th>الاتجاه</th><th>أعلى منشور</th></tr></thead><tbody>${XK.keywords.map(k=>{const tp=(k.w24||{}).top||(k.w48||{}).top;return `<tr><td class="n">${ltr(String(num(k.rank)))}</td><td>${ltr(esc(k.keyword))}</td><td class="n">${ltr(kfmt((k.w24||{}).total)+' · '+kfmt((k.w24||{}).median))}<small>${ltr(String(num((k.w24||{}).n)))} منشورًا${k.top_share!=null?` · أعلى منشور ${ltr(Math.round(k.top_share*100)+'%')}`:''}</small></td><td class="n">${ltr(kfmt((k.prev24||{}).total))}<small>${ltr(String(num((k.prev24||{}).n)))} منشورًا</small></td><td class="n">${ltr(kfmt((k.w48||{}).total))}</td><td class="n ${tc(k.trend)}">${esc(ar(k.trend))}${k.change!=null?` ${ltr('×'+k.change)}`:''}</td><td>${tp?`<a href="${esc(tp.url)}" target="_blank" rel="noopener">${ltr(esc(tp.handle))} · ${ltr(kfmt(tp.views))}</a>`:'—'}</td></tr>`}).join('')}</tbody></table></div><details><summary>المنهج (${ltr(String(num(XK.calls)))} عمليات بحث، ${ltr(esc((XK.fetched_at||'').slice(0,16).replace('T',' ')))} UTC)</summary><div class="radar-legend" dir="auto">${esc(XK.method||'')}</div></details>`;}
+ h+=`<div class="radar-sub">أ / ترندات 24–48 ساعة</div><div class="rgrid">${(r.topics||[]).map((t,i)=>`<article class="rcard"><h4>${ltr(String(i+1)+'.')} ${auto(esc(t.name))}</h4><div class="rmeta"><span>الحرارة ${ltr(String(num(t.heat)))}</span><span class="heat" style="width:${Math.max(6,num(t.heat)*0.9)}px"></span><span dir="auto">${esc(t.momentum)}</span></div><div class="rmeta" style="margin-top:4px"><span>24 ساعة: ${ltr(String(num(t.posts_24h)))} منشورًا · ${ltr(kfmt(t.views_24h))}</span><span>48 ساعة: ${ltr(String(num(t.posts_48h)))} · ${ltr(kfmt(t.views_48h))}</span></div><div class="kw-row">${(t.keywords||[]).map(k=>`<span class="kw-chip">${ltr(esc(k))}</span>`).join('')}</div><ul class="rev">${(t.evidence||[]).map(e=>`<li><a href="${esc(e.url||'#')}" target="_blank" rel="noopener">${ltr(esc(e.handle))} · ${ltr(kfmt(e.views))}</a> <span dir="auto">${esc(e.hook||'')}</span></li>`).join('')}</ul></article>`).join('')}</div>`;
+ h+=`<div class="radar-sub">ب / أفكار المنشورات · الترند والخطاف والصورة (كلمات X أولًا، ثم رائج القائمة)</div><div class="rgrid">${(r.ideas||[]).map((x,i)=>`<article class="rcard"><h4>${ltr(String(i+1)+'.')} ${auto(esc(x.title))}</h4><div class="rmeta"><span class="vbadge">${esc(chipLabel(x.format))}</span>${x.x_rank?`<span class="vbadge vb-trend">كلمة X ${ltr('#'+num(x.x_rank))}</span>`:`<span class="vbadge vb-other">${esc(chipLabel(x.source||'watchlist'))}</span>`}<span dir="auto">${esc(x.topic)}</span></div><div class="idea-hook" dir="ltr" id="idea-${i}">${esc(x.hook_en)}</div>${x.visual?`<div class="idea-vis"><b>${/image|carousel|meme/.test(x.visual_type||'')?'🖼':'🎬'} البصري (${esc(chipLabel(x.visual_type||''))}):</b> <span dir="auto">${esc(x.visual)}</span></div>`:''}<div class="idea-row"><b>الزاوية:</b> <span dir="auto">${esc(x.angle)}</span></div><div class="idea-row"><b>لماذا يُتوقع أن ينجح:</b> <span dir="auto">${esc(x.why)}</span></div><div class="kw-row"><span class="kw-label">كلمات مفتاحية:</span>${(x.keywords||[]).map(k=>`<span class="kw-chip">${ltr(esc(k))}</span>`).join('')}</div><button type="button" class="copy-btn" style="margin-top:8px" data-draft-id="idea-${i}">انسخ الخطاف</button></article>`).join('')}</div>`;
+ if((r.articles||[]).length)h+=`<div class="radar-sub">ب2 / أفكار مقالات مطوّلة حول أبرز الكلمات</div><div class="rgrid">${r.articles.map((a,i)=>`<article class="rcard"><h4>${ltr(String(i+1)+'.')} ${auto(esc(a.title))}</h4><div class="idea-row"><b>الأطروحة:</b> <span dir="auto">${esc(a.thesis)}</span></div><ol class="rev" style="padding-inline-start:18px;list-style:decimal">${(a.outline||[]).map(o=>`<li dir="auto">${esc(o)}</li>`).join('')}</ol><div class="idea-vis"><b>🖼 البصري:</b> <span dir="auto">${esc(a.visual)}</span></div><div class="idea-row"><b>السبب:</b> <span dir="auto">${esc(a.why)}</span></div><div class="kw-row"><span class="kw-label">كلمات مفتاحية:</span>${(a.keywords||[]).map(k=>`<span class="kw-chip">${ltr(esc(k))}</span>`).join('')}</div></article>`).join('')}</div>`;
+ h+=`<div class="radar-sub">ج / لماذا نجح</div><div class="why-list">${(r.why_hit||[]).slice().sort((a,b)=>num(b.views)-num(a.views)).map(w=>`<div class="why-row"><span class="wh">${ltr(esc(w.handle))} <span class="wv">${esc(chipLabel(w.lane))}</span>${w.self_quote?'<span class="sq">اقتباس ذاتي</span>':''}</span><span class="wv">${ltr(kfmt(w.views))}</span><span class="mbar"><i style="width:${num(w.trend_match)}%"></i></span><b class="wv">${ltr(num(w.trend_match)+'%')}</b><span class="vbadge ${vbClass(w.verdict)}">${esc(chipLabel(w.verdict))}</span><span class="wv">الوسيط: ${esc(chipLabel(w.media))}</span>${(w.matched_keywords||[]).slice(0,4).map(k=>`<span class="kw-chip">${ltr(esc(k))}</span>`).join('')}${w.note?`<span class="wv" dir="auto">${esc(w.note)}</span>`:''}</div>`).join('')}</div>`;
+ h+=`<details><summary>المنهج / الدليل</summary><div class="radar-legend" dir="auto">${esc(r.legend||'')}</div></details>`;
+ if(narrText)h+=`<details><summary>الملخص الخام (من خارج القائمة)</summary><div class="radar-legend" dir="auto">${esc(narrText)}</div></details>`;
+ el.innerHTML=h;revealShow(el);revealShow(hd);bindCopy(el)}
 function renderExp(e){const el=document.getElementById('exp'),hd=document.getElementById('exp-head');if(!e||!el)return;
- const L=e.labels||{trend:'trend',nontrend:'non-trend'};const T=e.totals||{},b=e.baseline||{};const g=(x,l)=>`<div class="rcard"><h4>${esc(l)}</h4><div class="rmeta"><span>n=${num((x||{}).n)}</span><span>median ${x&&x.median_x!=null?x.median_x+'x':'—'} of baseline</span><span>≥${kfmt(e.hit)}: ${x&&x.hit_rate!=null?x.hit_rate+'%':'—'}</span></div></div>`;
- const note=document.getElementById('exp-note');if(note)note.textContent=`${e.handle||''} · ${e.start||''} → ${e.end||''}`;
- let h=`<div class="radar-sum"><div>${esc(e.verdict||'')}</div><div class="radar-take">Baseline: median ${kfmt(b.median)} views (n=${num(b.n)}; ${esc(b.window||'')}).${e.hypothesis?` Hypothesis: ${esc(e.hypothesis)}.`:''} Updated ${esc((e.updated||'').slice(0,16).replace('T',' '))} UTC.</div></div>`;
- h+=`<div class="exp-tot">${g(T.trend,L.trend)}${g(T.nontrend,L.nontrend)}<div class="rcard"><h4>Lift</h4><div class="rmeta"><span>${T.lift_pct!=null?(T.lift_pct>0?'+':'')+T.lift_pct+'%':'—'}</span>${T.small_sample?'<span class="vbadge vb-other">sample too small</span>':''}${T.fresh_excluded?`<span>fresh (&lt;${num(e.min_age_h)}h) not in totals: ${num(T.fresh_excluded)}</span>`:''}</div></div></div>`;
- const BM=T.by_media||{};if(Object.keys(BM).length)h+=`<div class="radar-sub">Same format only (video vs video, image vs image)</div><div class="why-list">${Object.entries(BM).map(([m,v])=>`<div class="why-row"><span class="wh">${esc(m)}</span><span class="wv">${esc(L.trend)} n=${num(v.trend.n)} · ${v.trend.median_x!=null?v.trend.median_x+'x':'—'}</span><span class="wv">${esc(L.nontrend)} n=${num(v.nontrend.n)} · ${v.nontrend.median_x!=null?v.nontrend.median_x+'x':'—'}</span><b class="wv">${v.lift_pct!=null?(v.lift_pct>0?'+':'')+v.lift_pct+'%':(v.comparable?'—':'no pair yet')}</b></div>`).join('')}</div>`;
- h+=`<div class="radar-sub">Posts (${num((e.posts||[]).length)})</div><div class="why-list">${(e.posts||[]).length?(e.posts||[]).slice().reverse().map(p=>`<div class="exp-row"><span class="wh"><a href="${esc(p.url)}" target="_blank" rel="noopener" style="color:var(--text)">${esc(p.date)}</a></span><span class="wv">${kfmt(p.views)} · ${p.x_base!=null?p.x_base+'x':'—'}</span><span class="mbar"><i style="width:${num(p.trend_match)}%"></i></span><b class="wv">${num(p.trend_match)}%</b><span class="vbadge ${p.label===L.trend?'vb-trend':'vb-other'}">${esc(p.label)}</span><span class="wv">media: ${esc(p.media)}</span>${p.self_quote?'<span class="sq">self-quote</span>':''}${p.mature?'':'<span class="wv">fresh</span>'}${(p.matched_keywords||[]).slice(0,4).map(k=>`<span class="kw-chip">${esc(k)}</span>`).join('')}<div class="et">${esc((p.text||'').slice(0,140))}</div></div>`).join(''):'<div class="why-row"><span class="wv">No posts in the window yet. The next daily run picks them up.</span></div>'}</div>`;
- h+=`<details><summary>Method</summary><div class="radar-legend">${esc(e.method||'')}</div></details>`;
- el.innerHTML=h;el.hidden=false;hd.hidden=false}
-async function copyDraft(btn,text){try{await navigator.clipboard.writeText(text)}catch(e){const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.left='-9999px';document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove()}const prev=btn.textContent;btn.textContent='COPIED';btn.classList.add('copied');setTimeout(()=>{btn.textContent=prev;btn.classList.remove('copied')},1400)}
+ const L=e.labels||{trend:'trend',nontrend:'non-trend'};const T=e.totals||{},b=e.baseline||{};const lab=s=>esc(chipLabel(s));const g=(x,l)=>`<div class="rcard"><h4>${lab(l)}</h4><div class="rmeta"><span>العدد=${ltr(String(num((x||{}).n)))}</span><span>الوسيط ${ltr(x&&x.median_x!=null?x.median_x+'x':'—')} من خط الأساس</span><span>≥${ltr(kfmt(e.hit))}: ${ltr(x&&x.hit_rate!=null?x.hit_rate+'%':'—')}</span></div></div>`;
+ const note=document.getElementById('exp-note');if(note)note.innerHTML=`${ltr(esc(e.handle||''))} · ${ltr(esc(e.start||''))} → ${ltr(esc(e.end||''))}`;
+ let h=`<div class="radar-sum"><div dir="auto">${esc(e.verdict||'')}</div><div class="radar-take" dir="auto">خط الأساس: وسيط ${ltr(kfmt(b.median))} مشاهدة (العدد=${ltr(String(num(b.n)))}؛ ${esc(b.window||'')}).${e.hypothesis?` الفرضية: ${esc(e.hypothesis)}.` :''} حُدّث ${ltr(esc((e.updated||'').slice(0,16).replace('T',' ')))} UTC.</div></div>`;
+ h+=`<div class="exp-tot">${g(T.trend,L.trend)}${g(T.nontrend,L.nontrend)}<div class="rcard"><h4>الرفع</h4><div class="rmeta"><span>${T.lift_pct!=null?ltr((T.lift_pct>0?'+':'')+T.lift_pct+'%'):'—'}</span>${T.small_sample?'<span class="vbadge vb-other">العينة صغيرة</span>':''}${T.fresh_excluded?`<span>حديث (&lt;${ltr(String(num(e.min_age_h)))} ساعة) خارج الإجمالي: ${ltr(String(num(T.fresh_excluded)))}</span>`:''}</div></div></div>`;
+ const BM=T.by_media||{};if(Object.keys(BM).length)h+=`<div class="radar-sub">المقارنة داخل الوسيط نفسه فقط (فيديو مع فيديو، صورة مع صورة)</div><div class="why-list">${Object.entries(BM).map(([m,v])=>`<div class="why-row"><span class="wh">${esc(chipLabel(m))}</span><span class="wv">${lab(L.trend)} العدد=${ltr(String(num(v.trend.n)))} · ${ltr(v.trend.median_x!=null?v.trend.median_x+'x':'—')}</span><span class="wv">${lab(L.nontrend)} العدد=${ltr(String(num(v.nontrend.n)))} · ${ltr(v.nontrend.median_x!=null?v.nontrend.median_x+'x':'—')}</span><b class="wv">${v.lift_pct!=null?ltr((v.lift_pct>0?'+':'')+v.lift_pct+'%'):(v.comparable?'—':'لا زوج بعد')}</b></div>`).join('')}</div>`;
+ h+=`<div class="radar-sub">المنشورات (${ltr(String(num((e.posts||[]).length)))})</div><div class="why-list">${(e.posts||[]).length?(e.posts||[]).slice().reverse().map(p=>`<div class="exp-row"><span class="wh"><a href="${esc(p.url)}" target="_blank" rel="noopener" style="color:var(--text)">${ltr(esc(p.date))}</a></span><span class="wv">${ltr(kfmt(p.views))} · ${ltr(p.x_base!=null?p.x_base+'x':'—')}</span><span class="mbar"><i style="width:${num(p.trend_match)}%"></i></span><b class="wv">${ltr(num(p.trend_match)+'%')}</b><span class="vbadge ${p.label===L.trend?'vb-trend':'vb-other'}">${lab(p.label)}</span><span class="wv">الوسيط: ${esc(chipLabel(p.media))}</span>${p.self_quote?'<span class="sq">اقتباس ذاتي</span>':''}${p.mature?'':'<span class="wv">حديث</span>'}${(p.matched_keywords||[]).slice(0,4).map(k=>`<span class="kw-chip">${ltr(esc(k))}</span>`).join('')}<div class="et" dir="auto">${esc((p.text||'').slice(0,140))}</div></div>`).join(''):'<div class="why-row"><span class="wv">لا منشورات في هذه النافذة بعد. يلتقطها التشغيل اليومي التالي.</span></div>'}</div>`;
+ h+=`<details><summary>المنهج</summary><div class="radar-legend" dir="auto">${esc(e.method||'')}</div></details>`;
+ el.innerHTML=h;revealShow(el);revealShow(hd)}
+async function copyDraft(btn,text){try{await navigator.clipboard.writeText(text)}catch(e){const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.left='-9999px';document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove()}const prev=btn.textContent;btn.textContent='تم النسخ';btn.classList.add('copied');setTimeout(()=>{btn.textContent=prev;btn.classList.remove('copied')},1400)}
 function chartColors(){
   const night=document.documentElement.getAttribute('data-theme')!=='day';
   return night
@@ -798,17 +941,17 @@ function renderSparkline(hits){
   const svg=document.getElementById('sparkline');
   const labels=document.getElementById('spark-labels');
   const c=chartColors();
-  if(!top.length){svg.innerHTML=`<text x="500" y="70" text-anchor="middle" fill="${c.muted}" font-size="13">NO SIGNALS</text>`;labels.innerHTML='';return}
+  if(!top.length){svg.innerHTML=`<text x="500" y="74" text-anchor="middle" fill="${c.muted}" font-family="IBM Plex Sans Arabic, sans-serif" font-size="16">لا إشارات</text>`;labels.innerHTML='';return}
   const max=Math.max(...top.map(h=>num(h.views)),1);
   const gap=16,w=(1000-gap*(top.length+1))/top.length;
   svg.innerHTML=`<defs><linearGradient id="barGrad" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stop-color="${c.cyan}" stop-opacity=".55"/><stop offset="100%" stop-color="${c.cyan}"/></linearGradient><linearGradient id="barGradTop" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stop-color="${c.lime}" stop-opacity=".55"/><stop offset="100%" stop-color="${c.lime}"/></linearGradient></defs><line x1="0" y1="118" x2="1000" y2="118" stroke="${c.track}" stroke-width="1"/>`+
     top.map((h,i)=>{
-      const height=Math.max(10,100*num(h.views)/max),x=gap+i*(w+gap),y=118-height;
+      const height=Math.max(10,100*num(h.views)/max),x=1000-gap-w-i*(w+gap),y=118-height;
       const fill=i===0?'url(#barGradTop)':'url(#barGrad)';
       const tc=i===0?c.lime:c.cyan;
       return `<g><rect x="${x}" y="${y}" width="${w}" height="${height}" rx="4" fill="${fill}"/><rect x="${x}" y="${y}" width="${w}" height="2.5" rx="1" fill="#fff" opacity=".55"/><text x="${x+w/2}" y="${Math.max(12,y-8)}" text-anchor="middle" fill="${tc}" font-family="IBM Plex Mono" font-size="10" font-weight="600">${esc(fmt(h.views))}</text></g>`;
     }).join('');
-  labels.innerHTML=top.map(h=>`<span>${esc((h.handle||h.name||'—').replace('@',''))}</span>`).join('');
+  labels.innerHTML=top.map(h=>`<span dir="ltr">${esc((h.handle||h.name||'—').replace('@',''))}</span>`).join('');
 }
 function renderDayCompare(roster, op){
   const svg=document.getElementById('day-compare');
@@ -818,7 +961,7 @@ function renderDayCompare(roster, op){
   if(!svg) return;
   const list=(roster||[]).filter(r=>num(r.views)>0).slice(0,10);
   if(!list.length){
-    svg.innerHTML=`<text x="500" y="70" text-anchor="middle" fill="${c.muted}" font-size="13">NO DAY ROSTER</text>`;
+    svg.innerHTML=`<text x="500" y="74" text-anchor="middle" fill="${c.muted}" font-family="IBM Plex Sans Arabic, sans-serif" font-size="16">لا ترتيب يومي</text>`;
     if(labels) labels.innerHTML='';
     return;
   }
@@ -827,7 +970,7 @@ function renderDayCompare(roster, op){
   svg.innerHTML=`<line x1="0" y1="118" x2="1000" y2="118" stroke="${c.track}" stroke-width="1"/>`+
     list.map((r,i)=>{
       const you=isYouEntry(r,op);
-      const height=Math.max(10,100*num(r.views)/max),x=gap+i*(w+gap),y=118-height;
+      const height=Math.max(10,100*num(r.views)/max),x=1000-gap-w-i*(w+gap),y=118-height;
       const fill=you?c.you:c.cyan;
       const opv=you?1:.72;
       return `<g><rect x="${x}" y="${y}" width="${w}" height="${height}" rx="4" fill="${fill}" opacity="${opv}"/><text x="${x+w/2}" y="${Math.max(12,y-8)}" text-anchor="middle" fill="${fill}" font-family="IBM Plex Mono" font-size="10" font-weight="600">${esc(fmt(r.views))}</text></g>`;
@@ -835,9 +978,9 @@ function renderDayCompare(roster, op){
   if(labels) labels.innerHTML=list.map(r=>{
     const you=isYouEntry(r,op);
     const h=(r.handle||'').replace('@','');
-    return `<span style="${you?'color:var(--lime);font-weight:700':''}">${esc(you?'YOU':h)}</span>`;
+    return you?`<span style="color:var(--lime);font-weight:700">أنت</span>`:`<span dir="ltr">${esc(h)}</span>`;
   }).join('');
-  if(scale) scale.textContent=`top ${list.length} · peak ${fmt(max)}`;
+  if(scale) scale.textContent=`أعلى ${list.length} · الذروة ${fmt(max)}`;
 }
 function renderWeekStrip(days){
   const el=document.getElementById('week-strip');
@@ -846,9 +989,9 @@ function renderWeekStrip(days){
   if(!list.length){el.innerHTML='';return}
   el.innerHTML=list.map(d=>{
     const s=String(d);
-    const short=s.length>=10?s.slice(5):s; // MM-DD
-    const dow=(()=>{try{const dt=new Date(s+'T12:00:00');return dt.toLocaleDateString('en-GB',{weekday:'short'})}catch(e){return '—'}})();
-    return `<div class="week-day on" title="${esc(s)}"><span>${esc(dow)}</span><span class="wd-d">${esc(short)}</span></div>`;
+    const short=s.length>=10?s.slice(5):s;
+    const dow=(()=>{try{const dt=new Date(s+'T12:00:00');return DOW_AR[dt.getDay()]||'—'}catch(e){return '—'}})();
+    return `<div class="week-day on" title="${esc(arDay(s))}"><span>${esc(dow)}</span><span class="wd-d" dir="ltr">${esc(short)}</span></div>`;
   }).join('');
 }
 function isYouEntry(e, op){
@@ -861,20 +1004,20 @@ function isYouEntry(e, op){
 function applyBrand(d){
   const op=d.operator||{};
   const handle=d.brand_handle||op.handle||'@your_handle';
-  const title=d.brand_title||'Grok Bot X Virality Score';
+  const title=brandTitle(d.brand_title);
   const tEl=document.getElementById('brand-title');
   const yd=document.getElementById('your-day-label');
-  if(tEl) tEl.innerHTML=`${esc(title)} <span class="handle" id="brand-handle">· ${esc(handle)}</span>`;
-  if(yd) yd.textContent=`Your day · ${handle}`;
+  if(tEl) tEl.innerHTML=`${esc(title)} <span class="handle" id="brand-handle">· ${ltr(esc(handle))}</span>`;
+  if(yd) yd.innerHTML=`يومك · ${ltr(esc(handle))}`;
   document.title=`${title} · ${handle}`;
-  return {handle, name:op.name||'Operator', profile_url:op.profile_url};
+  return {handle, name:op.name||'المشغّل', profile_url:op.profile_url};
 }
 function renderLeaderboard(el, entries, op){
   if(!el) return;
-  if(!entries||!entries.length){el.innerHTML='<p class="muted">No leaderboard data yet.</p>';return}
+  if(!entries||!entries.length){el.innerHTML='<p class="muted">لا بيانات للوحة الصدارة بعد.</p>';return}
   el.innerHTML=entries.map((e,i)=>{
     const you=isYouEntry(e,op);
-    return `<div class="lb-row${you?' you':''}"><div class="rank">${String(i+1).padStart(2,'0')}</div><div><div class="lb-handle">${esc(e.handle||'')}${you?'<span class="you-chip">YOU</span>':''}</div><div class="lb-meta">${esc(e.name||'—')} · ${num(e.hits)} hits · ${num(e.days)}d</div></div><div class="lb-views">${esc(fmtBestTotal(e.best||0,e.views))}</div></div>`;
+    return `<div class="lb-row${you?' you':''}"><div class="rank">${String(i+1).padStart(2,'0')}</div><div><div class="lb-handle">${ltr(esc(e.handle||''))}${you?'<span class="you-chip">أنت</span>':''}</div><div class="lb-meta">${auto(esc(e.name||'—'))} · ${ltr(String(num(e.hits)))} منشورات ناجحة · ${ltr(String(num(e.days)))} يوم</div></div><div class="lb-views">${ltr(esc(fmtBestTotal(e.best||0,e.views)))}</div></div>`;
   }).join('');
 }
 function renderDayRoster(list, op, youRank){
@@ -882,39 +1025,39 @@ function renderDayRoster(list, op, youRank){
   const note=document.getElementById('roster-note');
   if(!el) return;
   if(!list||!list.length){
-    el.innerHTML='<p class="muted">No day roster yet. Scrape needed for operator + watchlist.</p>';
-    if(note) note.textContent='awaiting scrape';
+    el.innerHTML='<p class="muted">لا يوجد ترتيب يومي بعد. يلزم جمع بيانات المشغّل وقائمة المتابعة.</p>';
+    if(note) note.textContent='بانتظار جمع البيانات';
     return;
   }
   if(note){
     const ybt=youRank?fmtBestTotal(youRank.best_views, youRank.total_views!=null?youRank.total_views:youRank.best_views):'—';
     const rk=youRank&&youRank.rank_among_watchlist!=null?`#${youRank.rank_among_watchlist}`:'—';
-    note.textContent=`you ${rk} / ${list.length} · best / total · ranked by best · ${ybt}`;
+    note.innerHTML=`أنت ${ltr(esc(rk))} / ${ltr(String(list.length))} · الأفضل / الإجمالي · حسب الأفضل · ${ltr(esc(ybt))}`;
   }
   el.innerHTML=list.map((r,i)=>{
     const you=isYouEntry(r,op);
     const hit=r.hit===true||num(r.views)>=DASHBOARD_TARGETS.minHitViews;
     const best=num(r.views);
     const total=r.total_views!=null?num(r.total_views):best;
-    const cell=best===0&&!hit?'—':esc(fmtBestTotal(best,total));
-    return `<div class="roster-row${you?' you':''}"><div class="rank">${String(i+1).padStart(2,'0')}</div><div><div class="roster-handle">${esc(r.handle||'')}${you?'<span class="you-chip">YOU</span>':''}</div><div class="roster-name">${esc(r.name||'—')}</div></div><div class="roster-views">${cell}</div><div class="roster-badge ${hit?'hit':'miss'}">${hit?'HIT':'BELOW'}</div></div>`;
+    const cell=best===0&&!hit?'—':ltr(esc(fmtBestTotal(best,total)));
+    return `<div class="roster-row${you?' you':''}"><div class="rank">${String(i+1).padStart(2,'0')}</div><div><div class="roster-handle">${ltr(esc(r.handle||''))}${you?'<span class="you-chip">أنت</span>':''}</div><div class="roster-name">${auto(esc(r.name||'—'))}</div></div><div class="roster-views">${cell}</div><div class="roster-badge ${hit?'hit':'miss'}">${hit?'ناجح':'تحت الحد'}</div></div>`;
   }).join('');
 }
 function renderYourDay(youRank, handle){
   const meta=document.getElementById('your-day-meta');
   if(!youRank){
-    if(meta) meta.textContent=`No personal day data yet — scrape needed for ${handle||'@operator'}.`;
+    if(meta) meta.innerHTML=`لا بيانات شخصية لهذا اليوم بعد — يلزم جمع بيانات ${ltr(esc(handle||'@operator'))}.`;
     return;
   }
   const bv=youRank.best_views;
   const tv=youRank.total_views!=null?youRank.total_views:bv;
   if(meta){
     if(bv==null){
-      meta.textContent=youRank.note||'Best post unavailable — scrape needed.';
+      meta.innerHTML=youRank.note?auto(esc(youRank.note)):'أفضل منشور غير متاح — يلزم جمع البيانات.';
     }else{
-      const link=youRank.best_url?` · <a href="${esc(youRank.best_url)}" target="_blank" rel="noopener">open best post ↗</a>`:'';
-      const rk=youRank.rank_among_watchlist!=null?` · rank #${youRank.rank_among_watchlist}/${youRank.total_accounts||'?'} `:'';
-      meta.innerHTML=`Today <b style="color:var(--text)">${esc(fmtBestTotal(bv,tv))}</b> best / total${rk}${link}`;
+      const link=youRank.best_url?` · <a href="${esc(youRank.best_url)}" target="_blank" rel="noopener">افتح أفضل منشور ↗</a>`:'';
+      const rk=youRank.rank_among_watchlist!=null?` · الترتيب ${ltr('#'+youRank.rank_among_watchlist+'/'+(youRank.total_accounts||'?'))}`:'';
+      meta.innerHTML=`اليوم ${ltr(esc(fmtBestTotal(bv,tv)))} الأفضل / الإجمالي${rk}${link}`;
     }
   }
   const v=num(bv);
@@ -922,8 +1065,8 @@ function renderYourDay(youRank, handle){
   const p10=Math.min(100, pct(v, DASHBOARD_TARGETS.starViews));
   const c5=document.getElementById('you-5k-copy');
   const c10=document.getElementById('you-10k-copy');
-  if(c5) c5.textContent = bv==null ? '—' : `${fmt(v)} / 5K · ${p5}% · ${youRank.vs_5k==='done'?'DONE':'PENDING'}`;
-  if(c10) c10.textContent = bv==null ? '—' : `${fmt(v)} / 10K · ${p10}% · ${youRank.vs_10k==='done'?'DONE':'PENDING'}`;
+  if(c5) c5.textContent = bv==null ? '—' : `${fmt(v)} / 5K · ${p5}% · ${youRank.vs_5k==='done'?'تم':'قيد الانتظار'}`;
+  if(c10) c10.textContent = bv==null ? '—' : `${fmt(v)} / 10K · ${p10}% · ${youRank.vs_10k==='done'?'تم':'قيد الانتظار'}`;
   requestAnimationFrame(()=>{
     const a=document.getElementById('you-5k-progress');
     const b=document.getElementById('you-10k-progress');
@@ -934,31 +1077,31 @@ function renderYourDay(youRank, handle){
 function normalizeNoHits(raw){
   if(!Array.isArray(raw)) return [];
   return raw.map(item=>{
-    if(typeof item==='string') return {handle:item.startsWith('@')?item:'@'+item, reason:'Below 5k views floor or no qualifying day original.', max_views:null};
+    if(typeof item==='string') return {handle:item.startsWith('@')?item:'@'+item, reason:'تحت حد 5K مشاهدة، أو لا يوجد منشور أصلي مؤهل اليوم.', max_views:null};
     const handle=item.handle||item.account||'';
     return {
       handle: handle.startsWith('@')?handle:'@'+handle,
-      reason: item.reason||item.note||item.likely_reason||'Below 5k views floor or no qualifying day original.',
+      reason: item.reason||item.note||item.likely_reason||'تحت حد 5K مشاهدة، أو لا يوجد منشور أصلي مؤهل اليوم.',
       max_views: item.max_views!=null?item.max_views:null
     };
   });
 }
 function renderNoHits(list){
   const el=document.getElementById('nohits');
-  if(!list.length){el.innerHTML='<p class="muted">All watchlist accounts cleared the 5k floor today.</p>';return}
+  if(!list.length){el.innerHTML='<p class="muted">كل حسابات قائمة المتابعة تجاوزت حد 5K مشاهدة اليوم.</p>';return}
   const sorted=[...list].sort((a,b)=>{
     const av=a.max_views==null?-1:num(a.max_views);
     const bv=b.max_views==null?-1:num(b.max_views);
     return bv-av;
   });
-  el.innerHTML=sorted.map(n=>`<article class="nohit"><div><div class="nohit-handle">${esc(n.handle)}</div><div class="nohit-badge">no hit ≥5k</div></div><div class="nohit-reason">${esc(n.reason)}</div><div class="nohit-max">max seen<b>${n.max_views==null?'—':esc(fmt(n.max_views))}</b></div></article>`).join('');
+  el.innerHTML=sorted.map(n=>`<article class="nohit"><div><div class="nohit-handle">${ltr(esc(n.handle))}</div><div class="nohit-badge">لا نجاح ≥${ltr('5K')}</div></div><div class="nohit-reason" dir="auto">${esc(n.reason)}</div><div class="nohit-max">أعلى رقم مسجّل<b>${n.max_views==null?'—':ltr(esc(fmt(n.max_views)))}</b></div></article>`).join('');
 }
 function staggerCards(rootSel){
   const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce) return;
   document.querySelectorAll(rootSel).forEach((el,i)=>{
     el.classList.add('reveal');
-    el.style.animationDelay=(0.04+i*0.05)+'s';
+    if(!reduce) el.style.animationDelay=(Math.min(i,8)*0.04)+'s';
+    if(revealIO) revealIO.observe(el); else el.classList.add('in');
   });
 }
 async function boot(){
@@ -968,8 +1111,8 @@ async function boot(){
   const op={handle:brand.handle, name:brand.name, ...(d.operator||{})};
   const hits=Array.isArray(d.hits)?d.hits:[];const virals=Array.isArray(d.virals)?d.virals:(Array.isArray(d.outsiders)?d.outsiders:[]);
   const totalViews=hits.reduce((a,h)=>a+num(h.views),0);const maxViews=hits.length?Math.max(...hits.map(h=>num(h.views))):0;const highlights=hits.filter(h=>h.highlight===true||num(h.views)>=DASHBOARD_TARGETS.starViews).length;
-  const score=scoreFor(hits.length,totalViews);let delta=rawIndex(hits.length,totalViews)-100,label='vs target';
-  const prev=d.previous_day||d.previous||null;if(prev){let ps=Number(prev.x_score);if(!Number.isFinite(ps)){const ph=Array.isArray(prev.hits)?prev.hits.length:num(prev.hits_count);const pv=Array.isArray(prev.hits)?prev.hits.reduce((a,h)=>a+num(h.views),0):num(prev.total_views);ps=scoreFor(ph,pv)}if(Number.isFinite(ps)){delta=score-ps;label='vs prev day'}}
+  const score=scoreFor(hits.length,totalViews);let delta=rawIndex(hits.length,totalViews)-100,label='مقابل الهدف';
+  const prev=d.previous_day||d.previous||null;if(prev){let ps=Number(prev.x_score);if(!Number.isFinite(ps)){const ph=Array.isArray(prev.hits)?prev.hits.length:num(prev.hits_count);const pv=Array.isArray(prev.hits)?prev.hits.reduce((a,h)=>a+num(h.views),0):num(prev.total_views);ps=scoreFor(ph,pv)}if(Number.isFinite(ps)){delta=score-ps;label='مقابل أمس'}}
   countUp(document.getElementById('x-score'), score, {duration:1200, format:v=>String(Math.round(v))});
   const ring=document.getElementById('score-ring');
   const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -978,37 +1121,34 @@ async function boot(){
   const st=trendMarkup(delta,label);const scoreTrend=document.getElementById('score-trend');scoreTrend.className='trend '+st.dir;scoreTrend.innerHTML=st.html;
   const hp=pct(hits.length,DASHBOARD_TARGETS.hits),vp=pct(totalViews,DASHBOARD_TARGETS.views);document.getElementById('hits-target-copy').textContent=`${hits.length} / ${DASHBOARD_TARGETS.hits} · ${hp}%`;document.getElementById('views-target-copy').textContent=`${fmt(totalViews)} / ${fmt(DASHBOARD_TARGETS.views)} · ${vp}%`;
   requestAnimationFrame(()=>{[['hits-progress',hp],['views-progress',vp]].forEach(([id,p])=>{const el=document.getElementById(id);el.style.width=Math.min(100,p)+'%';if(p>=100)el.classList.add('done')})});
-  const targetDone=hp>=100&&vp>=100;const targetState=document.getElementById('target-state');targetState.className='target-state '+(targetDone?'done':'pending');targetState.textContent=targetDone?'✓ DONE':'◷ NOT DONE';
+  const targetDone=hp>=100&&vp>=100;const targetState=document.getElementById('target-state');targetState.className='target-state '+(targetDone?'done':'pending');targetState.textContent=targetDone?'✓ تم':'◷ لم يكتمل';
   const metrics=[
-    ['Hits',hits.length,null,trendMarkup(hits.length-DASHBOARD_TARGETS.hits,'vs target')],
-    ['★ Highlights',highlights,null,{dir:highlights?'up':'flat',html:`${highlights?'↑':'→'} ≥${fmt(DASHBOARD_TARGETS.starViews)} each`}],
-    ['Total views',totalViews,fmt,trendMarkup(pct(totalViews,DASHBOARD_TARGETS.views)-100,'vs target')],
-    ['Outsiders',virals.length,null,trendMarkup(virals.length-num(d.virals_target||20),'vs brief')],
-    ['Top view',maxViews,fmt,trendMarkup(pct(maxViews,DASHBOARD_TARGETS.starViews)-100,'vs ★ line')]
+    ['المنشورات الناجحة',hits.length,null,trendMarkup(hits.length-DASHBOARD_TARGETS.hits,'مقابل الهدف')],
+    ['★ البارزة',highlights,null,{dir:highlights?'up':'flat',html:`<span class="trend-arrow">${highlights?'↑':'→'}</span> ${ltr('≥'+fmt(DASHBOARD_TARGETS.starViews))} لكل منها`}],
+    ['إجمالي المشاهدات',totalViews,fmt,trendMarkup(pct(totalViews,DASHBOARD_TARGETS.views)-100,'مقابل الهدف')],
+    ['من خارج القائمة',virals.length,null,trendMarkup(virals.length-num(d.virals_target||20),'مقابل الموجز')],
+    ['أعلى مشاهدة',maxViews,fmt,trendMarkup(pct(maxViews,DASHBOARD_TARGETS.starViews)-100,'مقابل خط ★')]
   ];
-  document.getElementById('stats').innerHTML=metrics.map(([k,v,formatter,t],i)=>`<article class="stat reveal"><div class="stat-k">${esc(k)}</div><div class="stat-v" id="stat-v-${i}" data-raw="${num(v)}">0</div><div class="stat-note ${t.dir}">${t.html}</div></article>`).join('');
+  const statsEl=document.getElementById('stats');statsEl.innerHTML=metrics.map(([k,v,formatter,t],i)=>`<article class="stat reveal"><div class="stat-k">${esc(k)}</div><div class="stat-v" id="stat-v-${i}" data-raw="${num(v)}">0</div><div class="stat-note ${t.dir}">${t.html}</div></article>`).join('');watchReveal(statsEl);
   metrics.forEach(([k,v,formatter],i)=>{
     const el=document.getElementById('stat-v-'+i);
     const format = formatter || (x=>String(Math.round(x)));
     countUp(el, num(v), {duration:1000+i*80, format});
   });
-  const tz=d.timezone||'Europe/Moscow';
-  const updated=(()=>{if(!d.updated)return '—'; const s=String(d.updated); const hasTime=/T\d|\d{2}:\d{2}/.test(s); const dt=new Date(hasTime?s:s+'T12:00:00+03:00'); try{return dt.toLocaleString('en-GB',{timeZone:tz,day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit',hour12:false})}catch(e){return dt.toLocaleString('en-GB',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit',hour12:false})}})();
-  document.getElementById('meta').textContent=`${d.date||'—'} · updated ${updated} · ${tz}`;
-  document.getElementById('chart-scale').textContent=`peak ${fmt(maxViews)} · ${hits.length} signals`;
+  const tz=d.timezone||'Asia/Riyadh';
+  const updated=formatUpdated(d.updated,tz);
+  const tzPart=TZ_AR[tz]?esc(TZ_AR[tz]):ltr(esc(tz));
+  document.getElementById('meta').innerHTML=`${esc(d.date?arDay(d.date):'—')} · حُدّث ${esc(updated)} · ${tzPart}`;
+  document.getElementById('chart-scale').textContent=`الذروة ${fmt(maxViews)} · ${hits.length} إشارة`;
   renderSparkline(hits);
   const lbs=d.leaderboards||{};
-  document.getElementById('week-title').textContent=(lbs.week&&lbs.week.label)||'Week';
-  document.getElementById('month-title').textContent=(lbs.month&&lbs.month.label)||'Month';
-  const fmtRange=(r)=>{
-    if(!r||!r.length) return null;
-    const a=String(r[0]||''), b=String(r[r.length-1]||a);
-    const short=(s)=>{const m=s.match(/(\d{4})-(\d{2})-(\d{2})/); if(!m) return s; const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; return months[+m[2]-1]+(+m[3]);};
-    return a===b?short(a):`${short(a)}–${short(b)}`;
-  };
-  const weekR=fmtRange((lbs.week&&lbs.week.range)||lbs.days_included)||'—';
-  const monthR=fmtRange((lbs.month&&lbs.month.range)||lbs.month_days_included)||'—';
-  document.getElementById('lb-note').textContent=`best / total · week ${weekR} · month ${monthR} · as of ${lbs.as_of||d.date||'—'}`;
+  const weekRange=(lbs.week&&lbs.week.range)||lbs.days_included||[];
+  const monthRange=(lbs.month&&lbs.month.range)||lbs.month_days_included||[];
+  document.getElementById('week-title').textContent=weekTitle(weekRange);
+  document.getElementById('month-title').textContent=monthTitle(monthRange);
+  const weekR=weekRange.length?(arMonthDay(weekRange[0])+(weekRange.length>1&&arMonthDay(weekRange[0])!==arMonthDay(weekRange[weekRange.length-1])?' – '+arMonthDay(weekRange[weekRange.length-1]):'')):'—';
+  const monthR=monthRange.length?(arMonthDay(monthRange[0])+(monthRange.length>1&&arMonthDay(monthRange[0])!==arMonthDay(monthRange[monthRange.length-1])?' – '+arMonthDay(monthRange[monthRange.length-1]):'')):'—';
+  document.getElementById('lb-note').textContent=`الأفضل / الإجمالي · الأسبوع ${weekR} · الشهر ${monthR} · حتى ${lbs.as_of?arDay(lbs.as_of):(d.date?arDay(d.date):'—')}`;
   renderLeaderboard(document.getElementById('week-board'), lbs.week&&lbs.week.entries, op);
   renderLeaderboard(document.getElementById('month-board'), lbs.month&&lbs.month.entries, op);
   renderYourDay(d.you_rank||null, brand.handle);
@@ -1019,20 +1159,21 @@ async function boot(){
   document.getElementById('theme-toggle')?.addEventListener('click',()=>{
     setTimeout(()=>{renderSparkline(hits);renderDayCompare(d.day_roster||[], op)}, 50);
   });
-  const sorted=[...hits].sort((a,b)=>num(b.views)-num(a.views));document.getElementById('hits').innerHTML=sorted.map((h,i)=>{const threshold=h.highlight===true?DASHBOARD_TARGETS.starViews:DASHBOARD_TARGETS.minHitViews;const done=num(h.views)>=threshold;const draftId='draft-'+i;const draft=h.draft_en||'';return`<article class="card"><div class="card-top"><div class="identity"><div class="rank">${String(i+1).padStart(2,'0')}</div><div><div class="name">${esc(h.name||h.display_name||'Unknown')}</div><div class="handle">${esc(h.handle||'')}${sqHtml(h)}</div></div></div><div class="views-big">${esc(h.views_label||fmt(h.views))}<small>views</small></div></div><div class="hit-target ${done?'done':'not-done'}"><span class="mark">${done?'✓':'×'}</span><span>${done?'DONE':'NOT DONE'} · day target ≥${fmt(threshold)}${threshold===DASHBOARD_TARGETS.starViews?' ★':''}</span></div>${topBadge(h)}<div class="hook">${esc(h.hook||h.text||'')}</div>${whyLine(h.why_hit)}${h.video_tip?`<div class="chip">${esc(h.video_tip)}</div>`:''}${draftBlock(h,draftId)}<a class="post-link" href="${esc(h.url||h.status_url||'#')}" target="_blank" rel="noopener">OPEN POST ↗</a></article>`}).join('')||'<p class="muted">No watchlist hits today.</p>';
+  const sorted=[...hits].sort((a,b)=>num(b.views)-num(a.views));document.getElementById('hits').innerHTML=sorted.map((h,i)=>{const threshold=h.highlight===true?DASHBOARD_TARGETS.starViews:DASHBOARD_TARGETS.minHitViews;const done=num(h.views)>=threshold;const draftId='draft-'+i;return`<article class="card"><div class="card-top"><div class="identity"><div class="rank">${String(i+1).padStart(2,'0')}</div><div><div class="name" dir="auto">${esc(h.name||h.display_name||'غير معروف')}</div><div class="handle">${ltr(esc(h.handle||''))}${sqHtml(h)}</div></div></div><div class="views-big">${ltr(esc(h.views_label||fmt(h.views)))}<small>مشاهدة</small></div></div><div class="hit-target ${done?'done':'not-done'}"><span class="mark">${done?'✓':'×'}</span><span>${done?'تم':'لم يكتمل'} · هدف اليوم ${ltr('≥'+fmt(threshold))}${threshold===DASHBOARD_TARGETS.starViews?' ★':''}</span></div>${topBadge(h)}<div class="hook" dir="auto">${esc(h.hook||h.text||'')}</div>${whyLine(h.why_hit)}${h.video_tip?`<div class="chip" dir="auto">${esc(h.video_tip)}</div>`:''}${draftBlock(h,draftId)}<a class="post-link" href="${esc(h.url||h.status_url||'#')}" target="_blank" rel="noopener">افتح المنشور ↗</a></article>`}).join('')||'<p class="muted">لا منشورات ناجحة في قائمة المتابعة اليوم.</p>';
   bindCopy(document.getElementById('hits'));
   staggerCards('#hits .card');
-  document.getElementById('patterns').innerHTML=(d.patterns||[]).map(p=>`<span class="tag">${esc(p)}</span>`).join('');document.getElementById('viral-count').textContent=`${virals.length} outsider signals`;
-  document.getElementById('virals').innerHTML=virals.map((v,i)=>{const pending=!v.url||v.url==='#';return`<article class="card${pending?' pending':''}"><div class="card-top"><div class="identity"><div class="rank">${String(i+1).padStart(2,'0')}</div><div><div class="name">${esc(v.name||v.display_name||'Unknown')}</div><div class="handle">${esc(v.handle||'')}${sqHtml(v)}</div></div></div><div class="views-big">${esc(v.views_label||fmt(v.views))}<small>views</small></div></div>${topBadge(v)}<div class="hook">${esc(v.hook||v.text||'')}</div>${whyLine(v.why_hit)}${draftBlock(v,'vdraft-'+i)}<a class="post-link${pending?' disabled':''}" href="${esc(v.url||'#')}" target="_blank" rel="noopener">${pending?'PENDING SCRAPE':'OPEN POST ↗'}</a></article>`}).join('');
+  document.getElementById('patterns').innerHTML=(d.patterns||[]).map(p=>`<span class="tag" dir="auto">${esc(p)}</span>`).join('');document.getElementById('viral-count').innerHTML=`${ltr(String(virals.length))} إشارة من خارج القائمة`;
+  document.getElementById('virals').innerHTML=virals.map((v,i)=>{const pending=!v.url||v.url==='#';return`<article class="card${pending?' pending':''}"><div class="card-top"><div class="identity"><div class="rank">${String(i+1).padStart(2,'0')}</div><div><div class="name" dir="auto">${esc(v.name||v.display_name||'غير معروف')}</div><div class="handle">${ltr(esc(v.handle||''))}${sqHtml(v)}</div></div></div><div class="views-big">${ltr(esc(v.views_label||fmt(v.views)))}<small>مشاهدة</small></div></div>${topBadge(v)}<div class="hook" dir="auto">${esc(v.hook||v.text||'')}</div>${whyLine(v.why_hit)}${draftBlock(v,'vdraft-'+i)}<a class="post-link${pending?' disabled':''}" href="${esc(v.url||'#')}" target="_blank" rel="noopener">${pending?'بانتظار الجمع':'افتح المنشور ↗'}</a></article>`}).join('');
   bindCopy(document.getElementById('virals'));
   staggerCards('#virals .card');
   try{renderTrendKw(d)}catch(e){console.error(e)}
   if(d.experiment){try{renderExp(d.experiment)}catch(e){console.error(e)}}
-  const narr=document.getElementById('virals-narrative');const narrText=d.virals_narrative||d.narrative_synthesis;if(d.trend_radar){try{renderRadar(d.trend_radar,narrText)}catch(e){console.error(e)}}else if(narrText){narr.hidden=false;narr.textContent=narrText}
+  const narr=document.getElementById('virals-narrative');const narrText=d.virals_narrative||d.narrative_synthesis;if(d.trend_radar){try{renderRadar(d.trend_radar,narrText)}catch(e){console.error(e)}}else if(narrText){narr.hidden=false;narr.dir='auto';narr.textContent=narrText}
   renderNoHits(normalizeNoHits(d.no_hits));
 }
 initTheme();
-boot().catch(err=>{document.getElementById('meta').textContent='failed to load data.json';console.error(err)});
+setupReveal();
+boot().catch(err=>{document.getElementById('meta').textContent='تعذّر تحميل ملف البيانات';console.error(err)});
 </script>
 </body>
 </html>
