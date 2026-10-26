@@ -95,8 +95,8 @@ html[data-theme="day"] {
   --aurora-b:rgba(79,143,0,.10);
 }
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;overflow-x:hidden;max-width:100%}
-body.xvs-dash-2026,body.xvs-mobile-2026{overflow-x:hidden;max-width:100%;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;overflow-x:clip;max-width:100%;scroll-padding-top:76px}
+body.xvs-dash-2026,body.xvs-mobile-2026{overflow-x:clip;max-width:100%;-webkit-tap-highlight-color:transparent}
 body.xvs-mobile-2026{
   padding-left:env(safe-area-inset-left,0px);
   padding-right:env(safe-area-inset-right,0px);
@@ -187,14 +187,33 @@ h1{margin:6px 0 0;font-family:var(--font-display);font-size:clamp(22px,3vw,32px)
   border:1px solid var(--cyan-dim);transform:rotate(45deg);border-radius:4px;pointer-events:none;
 }
 .panel:hover{border-color:rgba(42,212,245,.45);transform:translateY(-2px)}
-.reveal{opacity:0;transform:translateY(16px)}
-.reveal.in{animation:riseIn .75s var(--ease) forwards}
-.reveal.in:nth-child(1){animation-delay:.04s}
-.reveal.in:nth-child(2){animation-delay:.1s}
-.reveal.in:nth-child(3){animation-delay:.16s}
-.reveal.in:nth-child(4){animation-delay:.22s}
-.reveal.in:nth-child(5){animation-delay:.28s}
-@keyframes riseIn{to{opacity:1;transform:none}}
+/* Final opacity lives on .in, not only inside an animation fill.
+   A ratio threshold can never fire for a panel taller than the viewport. */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .65s var(--ease), transform .65s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.section-nav{
+  position:sticky;top:0;z-index:40;
+  display:flex;gap:8px;align-items:center;
+  overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;
+  padding:10px 2px 12px;
+  margin:0 0 6px;
+  background:rgba(7,9,11,.9);
+  backdrop-filter:blur(16px) saturate(1.2);
+  -webkit-backdrop-filter:blur(16px) saturate(1.2);
+  border-bottom:1px solid var(--line);
+  scrollbar-width:none;
+}
+.section-nav::-webkit-scrollbar{display:none}
+html[data-theme="day"] .section-nav{background:rgba(243,246,248,.92)}
+.nav-chip{
+  flex:none;display:inline-flex;align-items:center;justify-content:center;
+  min-height:40px;padding:8px 14px;border-radius:999px;
+  border:1px solid var(--line);background:var(--panel-glass);color:var(--muted);
+  text-decoration:none;font:600 13px/1.2 var(--font-ar);white-space:nowrap;
+  transition:border-color .2s, color .2s, background .2s;
+}
+.nav-chip:hover,.nav-chip.active{border-color:var(--cyan);color:var(--cyan);background:var(--cyan-dim)}
+.nav-chip[hidden]{display:none!important}
 
 .score-panel{min-height:300px;padding:28px 30px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:18px}
 .panel-label{font:600 12px/1.65 var(--font-ar);letter-spacing:0;text-transform:none;color:var(--muted)}
@@ -302,7 +321,23 @@ h1{margin:6px 0 0;font-family:var(--font-display);font-size:clamp(22px,3vw,32px)
 .hit-target.not-done{color:var(--amber)}
 .hit-target.not-done .mark{border:1px solid var(--amber);color:var(--amber)}
 .hook{color:var(--muted);font-size:15px;line-height:1.85;margin-top:15px;opacity:.95}
+.hook-clamp{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
 html[data-theme="night"] .hook{color:#c4ced1}
+.card-more{
+  margin-top:12px;min-height:44px;padding:8px 16px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--cyan);background:transparent;color:var(--cyan);
+  font:600 13px/1 var(--font-ar);display:inline-flex;align-items:center;gap:8px;
+  touch-action:manipulation;
+}
+.card-more:hover,.card-more[aria-expanded="true"]{background:var(--cyan);color:#001014}
+.card-more-panel[hidden]{display:none!important}
+.roster-toggle{
+  margin-top:14px;width:100%;min-height:44px;border-radius:999px;cursor:pointer;
+  border:1px dashed var(--line-strong);background:var(--panel-2);color:var(--cyan);
+  font:700 14px/1 var(--font-ar);touch-action:manipulation;
+}
+.roster-toggle:hover{border-color:var(--cyan);background:var(--cyan-dim)}
+.roster-toggle[hidden],.roster-extra[hidden]{display:none!important}
 .chip{
   display:inline-flex;align-items:center;gap:7px;margin-top:12px;padding:7px 11px;
   border:1px solid rgba(42,212,245,.35);background:var(--cyan-dim);color:var(--cyan-2);
@@ -553,6 +588,9 @@ footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);color:v
   .privacy{padding:16px}
   .grok-ambient,.grok-trail{display:none}
   .panel::after{display:none}
+  .section-nav{padding-top:max(10px, env(safe-area-inset-top));padding-bottom:8px}
+  .nav-chip,.card-more,.roster-toggle{min-height:44px}
+  .card-more,.roster-toggle{width:100%;justify-content:center}
 }
 @media(max-width:430px){
   .wrap{width:min(100% - 16px,1160px)}
@@ -579,11 +617,12 @@ footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);color:v
 }
 
 @media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
   body.xvs-dash-2026{animation:none!important}
   .live-dot::after,.grok-ambient,.grok-ambient .eye,.grok-ambient .antenna,.grok-trail,
   .score-ring::after,.target-fill,.reveal,.stat,.card,.theme-toggle,.x-logo,
   .aurora span,.section-head h2::after,.target-title::after,.score-copy h2::after{animation:none!important;transition:none!important}
-  .reveal{opacity:1;transform:none}
+  .reveal,.reveal.in{opacity:1!important;transform:none!important;animation:none!important;transition:none!important}
   .panel:hover,.stat:hover,.card:hover{transform:none}
 }
 .theme-toggle:focus-visible,.copy-btn:focus-visible,a:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
@@ -650,6 +689,18 @@ html[data-theme="day"] .panel:hover{border-color:rgba(4,143,173,.45)}
     </div>
   </header>
 
+  <nav class="section-nav" id="section-nav" aria-label="أقسام اللوحة">
+    <a class="nav-chip" href="#sec-roster">الترتيب</a>
+    <a class="nav-chip" href="#sec-charts">الرسوم</a>
+    <a class="nav-chip" href="#sec-boards">الصدارة</a>
+    <a class="nav-chip" href="#sec-hits">أبرز المنشورات والمسودات</a>
+    <a class="nav-chip" href="#sec-patterns">الأنماط</a>
+    <a class="nav-chip" href="#trend-kw-head">كلمات الترند</a>
+    <a class="nav-chip" href="#radar-head">الرادار</a>
+    <a class="nav-chip" href="#exp-head" hidden>التجربة</a>
+    <a class="nav-chip" href="#sec-nohits">بلا منشور ناجح</a>
+  </nav>
+
   <main>
     <section class="hero" aria-label="مؤشر X والهدف اليومي">
       <article class="panel score-panel reveal">
@@ -682,13 +733,14 @@ html[data-theme="day"] .panel:hover{border-color:rgba(4,143,173,.45)}
 
     <section class="stats" id="stats" aria-label="مؤشرات اليوم"></section>
 
-    <div class="section-head reveal"><div><div class="section-index"><bdi dir="ltr">03</bdi> أنت وقائمة المتابعة</div><h2>الترتيب اليومي</h2></div><div class="section-note" id="roster-note">الأفضل / الإجمالي · حسب الأفضل</div></div>
+    <div class="section-head reveal" id="sec-roster"><div><div class="section-index"><bdi dir="ltr">03</bdi> أنت وقائمة المتابعة</div><h2>الترتيب اليومي</h2></div><div class="section-note" id="roster-note">الأفضل / الإجمالي · حسب الأفضل</div></div>
     <section class="panel roster-panel reveal" aria-label="أنت مقابل قائمة المتابعة">
       <div class="panel-label"><strong>أنت</strong> حسب الأفضل</div>
       <div class="roster-list" id="day-roster"></div>
+      <button type="button" class="roster-toggle" id="roster-toggle" hidden aria-expanded="false">عرض الكل</button>
     </section>
 
-    <div class="section-head reveal"><div><div class="section-index"><bdi dir="ltr">04</bdi> السرعة</div><h2>الرسوم</h2></div><div class="section-note">أبرز المنشورات · مقارنة اليوم · أيام الأسبوع</div></div>
+    <div class="section-head reveal" id="sec-charts"><div><div class="section-index"><bdi dir="ltr">04</bdi> السرعة</div><h2>الرسوم</h2></div><div class="section-note">أبرز المنشورات · مقارنة اليوم · أيام الأسبوع</div></div>
     <div class="charts-row">
       <section class="panel chart-panel reveal">
         <div class="chart-head"><div><div class="panel-label"><strong>أ</strong> خريطة السرعة</div><h2>مشاهدات الأعلى</h2></div><div class="chart-scale" id="chart-scale">أبرز إشارات القائمة</div></div>
@@ -703,16 +755,16 @@ html[data-theme="day"] .panel:hover{border-color:rgba(4,143,173,.45)}
       </section>
     </div>
 
-    <div class="section-head reveal"><div><div class="section-index"><bdi dir="ltr">05</bdi> لوحات الصدارة</div><h2>الأسبوع · الشهر</h2></div><div class="section-note" id="lb-note">الأفضل / الإجمالي · منشورات <bdi class="num" dir="ltr">≥5K</bdi></div></div>
+    <div class="section-head reveal" id="sec-boards"><div><div class="section-index"><bdi dir="ltr">05</bdi> لوحات الصدارة</div><h2>الأسبوع · الشهر</h2></div><div class="section-note" id="lb-note">الأفضل / الإجمالي · منشورات <bdi class="num" dir="ltr">≥5K</bdi></div></div>
     <section class="boards" aria-label="لوحتا الأسبوع والشهر">
       <article class="panel board-panel reveal"><div class="panel-label"><strong>أ</strong> أسبوع متحرّك</div><h3 id="week-title">الأسبوع</h3><div id="week-board"></div></article>
       <article class="panel board-panel reveal"><div class="panel-label"><strong>ش</strong> شهر تقويمي</div><h3 id="month-title">الشهر</h3><div id="month-board"></div></article>
     </section>
 
-    <div class="section-head reveal"><div><div class="section-index"><bdi dir="ltr">06</bdi> قائمة المتابعة</div><h2>أبرز المنشورات</h2></div><div class="section-note" id="hits-note">الاقتباس الذاتي يُحتسب (شارة) · المسودات لأفضل 10 فقط</div></div>
+    <div class="section-head reveal" id="sec-hits"><div><div class="section-index"><bdi dir="ltr">06</bdi> قائمة المتابعة</div><h2>أبرز المنشورات</h2></div><div class="section-note" id="hits-note">الاقتباس الذاتي يُحتسب (شارة) · المسودات لأفضل 10 فقط</div></div>
     <section class="hits-col" id="hits"></section>
 
-    <div class="section-head reveal"><div><div class="section-index"><bdi dir="ltr">07</bdi> طبقة الأنماط</div><h2>ملخص الأنماط</h2></div><div class="section-note">كلمات مفتاحية وخطافات وبنى متكررة</div></div>
+    <div class="section-head reveal" id="sec-patterns"><div><div class="section-index"><bdi dir="ltr">07</bdi> طبقة الأنماط</div><h2>ملخص الأنماط</h2></div><div class="section-note">كلمات مفتاحية وخطافات وبنى متكررة</div></div>
     <section class="tags" id="patterns"></section>
     <div class="section-head reveal" id="trend-kw-head" hidden><div><div class="section-index"><bdi dir="ltr">07b</bdi> كلمات الترند</div><h2>كلمات الترند · <bdi class="num" dir="ltr">24</bdi> ساعة</h2></div><div class="section-note">مرتّبة من منشورات اليوم وآخر 24 ساعة ومن خارج القائمة والموجز · ومضمّنة في المسودات</div></div>
     <section class="tags" id="trend-kw" hidden></section>
@@ -727,7 +779,7 @@ html[data-theme="day"] .panel:hover{border-color:rgba(4,143,173,.45)}
     <div class="section-head reveal" id="exp-head" hidden><div><div class="section-index"><bdi dir="ltr">08c</bdi> التجربة</div><h2>التجربة: ترند مقابل غير ترند</h2></div><div class="section-note" id="exp-note">منشوراتك · مقارنة داخل الوسيط نفسه</div></div>
     <section class="exp" id="exp" hidden></section>
 
-    <div class="section-head reveal"><div><div class="section-index"><bdi dir="ltr">09</bdi> تحت الحد</div><h2>بلا منشور ناجح <bdi class="num" dir="ltr">≥5K</bdi></h2></div><div class="section-note">الحسابات والأسباب المرجّحة</div></div>
+    <div class="section-head reveal" id="sec-nohits"><div><div class="section-index"><bdi dir="ltr">09</bdi> تحت الحد</div><h2>بلا منشور ناجح <bdi class="num" dir="ltr">≥5K</bdi></h2></div><div class="section-note">الحسابات والأسباب المرجّحة</div></div>
     <section class="nohits-block" id="nohits" aria-label="حسابات بلا منشور ناجح عند 5 آلاف مشاهدة"></section>
   </main>
 
@@ -767,28 +819,65 @@ const CHIP_AR = {
 };
 let CONFIG_DEFAULT_THEME = null;
 let revealIO = null;
+let revealArmed = false;
+function prefersReduce(){return window.matchMedia('(prefers-reduced-motion: reduce)').matches}
+function canReveal(el){
+  if(!el||el.nodeType!==1||el.classList.contains('in')) return false;
+  if(el.hidden) return false;
+  let node=el;
+  while(node){if(node.hidden) return false; node=node.parentElement}
+  return true;
+}
+function revealNow(el){
+  if(!canReveal(el)) return;
+  el.classList.add('in');
+  if(revealIO&&revealIO.unobserve){try{revealIO.unobserve(el)}catch(e){}}
+}
+function intersectsViewport(el){
+  const r=el.getBoundingClientRect();
+  const vh=window.innerHeight||document.documentElement.clientHeight||0;
+  const vw=window.innerWidth||document.documentElement.clientWidth||0;
+  if(vh<=0||vw<=0||(r.width===0&&r.height===0)) return false;
+  const visH=Math.min(r.bottom,vh)-Math.max(r.top,0);
+  const visW=Math.min(r.right,vw)-Math.max(r.left,0);
+  return visH>=1&&visW>=1;
+}
+function pumpReveal(){
+  document.querySelectorAll('.reveal:not(.in)').forEach(el=>{
+    if(!canReveal(el)) return;
+    if(revealArmed||intersectsViewport(el)) revealNow(el);
+  });
+}
+function armReveal(){revealArmed=true;pumpReveal()}
 function setupReveal(){
-  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reduce=prefersReduce();
   if(reduce||!('IntersectionObserver' in window)){
-    revealIO={observe(el){el.classList.add('in')},unobserve(){}};
+    revealIO={observe(el){revealNow(el)},unobserve(){}};
+    revealArmed=true;
   }else{
+    /* threshold 0: any painted pixel is enough. A ratio such as 0.08 can
+       never be reached when the element is taller than the viewport. */
     revealIO=new IntersectionObserver((entries)=>{
       entries.forEach(en=>{
-        if(!en.isIntersecting) return;
-        en.target.classList.add('in');
-        revealIO.unobserve(en.target);
+        if(en.isIntersecting||en.intersectionRatio>0) revealNow(en.target);
       });
-    },{threshold:0.08,rootMargin:'0px 0px -4% 0px'});
+    },{threshold:[0,0.001],rootMargin:'48px 0px 48px 0px'});
   }
   watchReveal(document);
-  setTimeout(()=>{
-    document.querySelectorAll('.reveal:not(.in)').forEach(el=>{
-      if(el.hidden) return;
-      const r=el.getBoundingClientRect();
-      const vh=window.innerHeight||document.documentElement.clientHeight;
-      if(r.bottom>0 && r.top<vh) el.classList.add('in');
-    });
-  }, 480);
+  const pump=()=>pumpReveal();
+  if(window.MutationObserver){
+    const mo=new MutationObserver(pump);
+    mo.observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['hidden','class']});
+  }
+  window.addEventListener('scroll',pump,{passive:true,capture:true});
+  window.addEventListener('resize',pump,{passive:true});
+  window.addEventListener('orientationchange',pump);
+  window.addEventListener('pageshow',pump);
+  requestAnimationFrame(pump);
+  if(reduce){armReveal();return}
+  setTimeout(pump,60);
+  setTimeout(pump,320);
+  setTimeout(armReveal,800);
 }
 function watchReveal(root){
   if(!root||!root.querySelectorAll) return;
@@ -796,20 +885,58 @@ function watchReveal(root){
   if(root.classList&&root.classList.contains('reveal')) nodes.push(root);
   root.querySelectorAll('.reveal').forEach(el=>nodes.push(el));
   nodes.forEach(el=>{
-    if(el.classList.contains('in')) return;
-    if(revealIO) revealIO.observe(el); else el.classList.add('in');
+    if(!canReveal(el)) return;
+    if(revealArmed||!revealIO) revealNow(el);
+    else revealIO.observe(el);
   });
 }
 function revealShow(el){
   if(!el) return;
   el.hidden=false;
-  if(!revealIO){el.classList.add('in');return}
-  revealIO.observe(el);
-  requestAnimationFrame(()=>{
-    const r=el.getBoundingClientRect();
-    const vh=window.innerHeight||document.documentElement.clientHeight;
-    if(r.bottom>0&&r.top<vh) el.classList.add('in');
+  watchReveal(el);
+  if(revealArmed||prefersReduce()) revealNow(el);
+  else if(revealIO) revealIO.observe(el);
+  requestAnimationFrame(pumpReveal);
+  syncSectionNav();
+}
+function syncSectionNav(){
+  document.querySelectorAll('#section-nav .nav-chip').forEach(a=>{
+    const id=(a.getAttribute('href')||'').replace('#','');
+    const target=id&&document.getElementById(id);
+    if(!target) return;
+    a.hidden=!!(target.hidden||(target.closest&&target.closest('[hidden]')));
   });
+}
+function bindSectionNav(){
+  const nav=document.getElementById('section-nav');
+  if(!nav) return;
+  const chips=[...nav.querySelectorAll('.nav-chip')];
+  const pinChip=(a)=>{
+    if(!a) return;
+    const navRect=nav.getBoundingClientRect();
+    const r=a.getBoundingClientRect();
+    if(r.left>=navRect.left+2 && r.right<=navRect.right-2) return;
+    const delta=(r.left+r.width/2)-(navRect.left+navRect.width/2);
+    nav.scrollLeft+=delta;
+  };
+  const mark=()=>{
+    const line=(window.innerHeight||800)*0.32;
+    let current=null;
+    chips.forEach(a=>{
+      if(a.hidden) return;
+      const el=document.getElementById((a.getAttribute('href')||'').replace('#',''));
+      if(!el||el.hidden) return;
+      if(el.getBoundingClientRect().top<=line) current=a;
+    });
+    chips.forEach(a=>a.classList.toggle('active', a===current));
+    pinChip(current);
+  };
+  chips.forEach(a=>a.addEventListener('click',()=>{
+    chips.forEach(c=>c.classList.toggle('active', c===a));
+    pinChip(a);
+  }));
+  window.addEventListener('scroll',mark,{passive:true});
+  mark();
 }
 function arDay(iso){
   const m=String(iso||'').match(/(\d{4})-(\d{2})-(\d{2})/);
@@ -903,6 +1030,45 @@ function topBadge(r){return r&&r.top10_rank?`<span class="vbadge vb-trend top10-
 function sqHtml(r){if(!r)return'';if(r.excluded_reason)return`<span class="sq" dir="auto" title="غير محتسب">${esc(r.excluded_reason)}</span>`;if(r.self_quote){const label=r.self_quote_label&&!/self-?quote/i.test(r.self_quote_label)?r.self_quote_label:'اقتباس ذاتي';return `<span class="sq" title="اقتباس ذاتي: يُحتسب كأي منشور أصلي">${esc(label)}</span>`}return''}
 function origBlock(h){return h.original_en?`<details class="orig-block"><summary>النص الأصلي</summary><pre dir="auto">${esc(h.original_en)}</pre></details>`:''}
 function draftBlock(h,draftId){const draft=h.draft_en||'';if(!draft)return origBlock(h);const kw=(h.draft_keywords||[]);const kwRow=kw.length?`<div class="kw-row"><span class="kw-label">كلمات مفتاحية:</span>${kw.map(k=>`<span class="kw-chip">${ltr(esc(k))}</span>`).join('')}${h.draft_check?`<span class="kw-meta">تداخل الرباعيات ${ltr(Math.round(num(h.draft_check.g4_overlap)*100)+'%')}</span>`:''}</div>`:'';const top=h.top10_rank?` · ${ltr('TOP-10 #'+num(h.top10_rank))}`:'';return`<div class="draft-block"><div class="draft-head"><span class="draft-label">مسودة${top}</span><button type="button" class="copy-btn" data-draft-id="${draftId}">انسخ المسودة</button></div><pre class="draft-text" dir="ltr" id="${draftId}">${esc(draft)}</pre>${kwRow}${origBlock(h)}</div>`}
+function cardIsLong(h){
+  const hook=String(h&&(h.hook||h.text)||'');
+  const draft=String(h&&h.draft_en||'');
+  const orig=String(h&&h.original_en||'');
+  return draft.length>0||orig.length>240||hook.length>180;
+}
+function renderSignalCard(h,i,opt){
+  opt=opt||{};
+  const pending=!!opt.pending;
+  const draftId=opt.draftId||('draft-'+i);
+  const showTarget=opt.hideTarget!==true;
+  const threshold=h.highlight===true?DASHBOARD_TARGETS.starViews:DASHBOARD_TARGETS.minHitViews;
+  const done=num(h.views)>=threshold;
+  const target=showTarget?`<div class="hit-target ${done?'done':'not-done'}"><span class="mark">${done?'✓':'×'}</span><span>${done?'تم':'لم يكتمل'} · هدف اليوم ${ltr('≥'+fmt(threshold))}${threshold===DASHBOARD_TARGETS.starViews?' ★':''}</span></div>`:'';
+  const linkLabel=pending?'بانتظار الجمع':'افتح المنشور ↗';
+  const extra=`${whyLine(h.why_hit)}${h.video_tip?`<div class="chip" dir="auto">${esc(h.video_tip)}</div>`:''}${draftBlock(h,draftId)}<a class="post-link${pending?' disabled':''}" href="${esc(h.url||h.status_url||'#')}" target="_blank" rel="noopener">${linkLabel}</a>`;
+  const head=`<div class="card-top"><div class="identity"><div class="rank">${String(i+1).padStart(2,'0')}</div><div><div class="name" dir="auto">${esc(h.name||h.display_name||'غير معروف')}</div><div class="handle">${ltr(esc(h.handle||''))}${sqHtml(h)}</div></div></div><div class="views-big">${ltr(esc(h.views_label||fmt(h.views)))}<small>مشاهدة</small></div></div>${target}${topBadge(h)}`;
+  const hook=esc(h.hook||h.text||'');
+  const cls='card'+(pending?' pending':'');
+  if(!cardIsLong(h)) return `<article class="${cls}">${head}<div class="hook" dir="auto">${hook}</div>${extra}</article>`;
+  const label=h.draft_en?'عرض المسودة':'عرض التفاصيل';
+  const panelId='fold-'+draftId;
+  return `<article class="${cls} card-fold">${head}<div class="hook hook-clamp" dir="auto">${hook}</div><button type="button" class="card-more" aria-expanded="false" aria-controls="${panelId}" data-label="${label}" data-close="إخفاء التفاصيل">${label}</button><div class="card-more-panel" id="${panelId}" hidden>${extra}</div></article>`;
+}
+function bindCardFolds(root){
+  (root||document).querySelectorAll('.card-more').forEach(btn=>{
+    if(btn.dataset.bound) return;
+    btn.dataset.bound='1';
+    btn.addEventListener('click',()=>{
+      const panel=document.getElementById(btn.getAttribute('aria-controls'));
+      const next=btn.getAttribute('aria-expanded')!=='true';
+      btn.setAttribute('aria-expanded', next?'true':'false');
+      btn.textContent=next?(btn.dataset.close||'إخفاء التفاصيل'):(btn.dataset.label||'عرض التفاصيل');
+      if(panel) panel.hidden=!next;
+      const hook=btn.parentElement&&btn.parentElement.querySelector('.hook');
+      if(hook) hook.classList.toggle('hook-clamp', !next);
+    });
+  });
+}
 function vbClass(v){v=String(v||'');return /^(trend|тренд)$/.test(v)?'vb-trend':/^(visual|визуал)$/.test(v)?'vb-vis':/^(author|автор)/.test(v)?'vb-auth':'vb-other'}
 function whyLine(w){if(!w)return'';return`<div class="why-hit-line"><span>تطابق الترند</span><span class="mbar"><i style="width:${num(w.trend_match)}%"></i></span>${ltr('<b>'+num(w.trend_match)+'%</b>')}<span class="vbadge ${vbClass(w.verdict)}">${esc(chipLabel(w.verdict))}</span>${(w.matched_keywords||[]).slice(0,5).map(k=>`<span class="kw-chip">${ltr(esc(k))}</span>`).join('')}</div>`}
 function kfmt(n){n=num(n);return n>=1e6?(n/1e6).toFixed(2)+'M':n>=1e3?(n/1e3).toFixed(1)+'K':String(n)}
@@ -1040,8 +1206,27 @@ function renderDayRoster(list, op, youRank){
     const best=num(r.views);
     const total=r.total_views!=null?num(r.total_views):best;
     const cell=best===0&&!hit?'—':ltr(esc(fmtBestTotal(best,total)));
-    return `<div class="roster-row${you?' you':''}"><div class="rank">${String(i+1).padStart(2,'0')}</div><div><div class="roster-handle">${ltr(esc(r.handle||''))}${you?'<span class="you-chip">أنت</span>':''}</div><div class="roster-name">${auto(esc(r.name||'—'))}</div></div><div class="roster-views">${cell}</div><div class="roster-badge ${hit?'hit':'miss'}">${hit?'ناجح':'تحت الحد'}</div></div>`;
+    const extra=i>=10;
+    return `<div class="roster-row${you?' you':''}${extra?' roster-extra':''}"${extra?' hidden':''}><div class="rank">${String(i+1).padStart(2,'0')}</div><div><div class="roster-handle">${ltr(esc(r.handle||''))}${you?'<span class="you-chip">أنت</span>':''}</div><div class="roster-name">${auto(esc(r.name||'—'))}</div></div><div class="roster-views">${cell}</div><div class="roster-badge ${hit?'hit':'miss'}">${hit?'ناجح':'تحت الحد'}</div></div>`;
   }).join('');
+  bindRosterToggle(list.length);
+}
+function bindRosterToggle(count){
+  const btn=document.getElementById('roster-toggle');
+  if(!btn) return;
+  if(count<=10){btn.hidden=true;return}
+  btn.hidden=false;
+  btn.setAttribute('aria-expanded','false');
+  btn.textContent='عرض الكل';
+  document.querySelectorAll('#day-roster .roster-extra').forEach(row=>{row.hidden=true});
+  if(btn.dataset.bound) return;
+  btn.dataset.bound='1';
+  btn.addEventListener('click',()=>{
+    const next=btn.getAttribute('aria-expanded')!=='true';
+    btn.setAttribute('aria-expanded', next?'true':'false');
+    btn.textContent=next?'عرض أقل':'عرض الكل';
+    document.querySelectorAll('#day-roster .roster-extra').forEach(row=>{row.hidden=!next});
+  });
 }
 function renderYourDay(youRank, handle){
   const meta=document.getElementById('your-day-meta');
@@ -1097,11 +1282,12 @@ function renderNoHits(list){
   el.innerHTML=sorted.map(n=>`<article class="nohit"><div><div class="nohit-handle">${ltr(esc(n.handle))}</div><div class="nohit-badge">لا نجاح ≥${ltr('5K')}</div></div><div class="nohit-reason" dir="auto">${esc(n.reason)}</div><div class="nohit-max">أعلى رقم مسجّل<b>${n.max_views==null?'—':ltr(esc(fmt(n.max_views)))}</b></div></article>`).join('');
 }
 function staggerCards(rootSel){
-  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reduce=prefersReduce();
   document.querySelectorAll(rootSel).forEach((el,i)=>{
     el.classList.add('reveal');
-    if(!reduce) el.style.animationDelay=(Math.min(i,8)*0.04)+'s';
-    if(revealIO) revealIO.observe(el); else el.classList.add('in');
+    if(!reduce) el.style.transitionDelay=(Math.min(i,6)*0.04)+'s';
+    if(revealArmed||reduce||!revealIO) revealNow(el);
+    else revealIO.observe(el);
   });
 }
 async function boot(){
@@ -1159,19 +1345,27 @@ async function boot(){
   document.getElementById('theme-toggle')?.addEventListener('click',()=>{
     setTimeout(()=>{renderSparkline(hits);renderDayCompare(d.day_roster||[], op)}, 50);
   });
-  const sorted=[...hits].sort((a,b)=>num(b.views)-num(a.views));document.getElementById('hits').innerHTML=sorted.map((h,i)=>{const threshold=h.highlight===true?DASHBOARD_TARGETS.starViews:DASHBOARD_TARGETS.minHitViews;const done=num(h.views)>=threshold;const draftId='draft-'+i;return`<article class="card"><div class="card-top"><div class="identity"><div class="rank">${String(i+1).padStart(2,'0')}</div><div><div class="name" dir="auto">${esc(h.name||h.display_name||'غير معروف')}</div><div class="handle">${ltr(esc(h.handle||''))}${sqHtml(h)}</div></div></div><div class="views-big">${ltr(esc(h.views_label||fmt(h.views)))}<small>مشاهدة</small></div></div><div class="hit-target ${done?'done':'not-done'}"><span class="mark">${done?'✓':'×'}</span><span>${done?'تم':'لم يكتمل'} · هدف اليوم ${ltr('≥'+fmt(threshold))}${threshold===DASHBOARD_TARGETS.starViews?' ★':''}</span></div>${topBadge(h)}<div class="hook" dir="auto">${esc(h.hook||h.text||'')}</div>${whyLine(h.why_hit)}${h.video_tip?`<div class="chip" dir="auto">${esc(h.video_tip)}</div>`:''}${draftBlock(h,draftId)}<a class="post-link" href="${esc(h.url||h.status_url||'#')}" target="_blank" rel="noopener">افتح المنشور ↗</a></article>`}).join('')||'<p class="muted">لا منشورات ناجحة في قائمة المتابعة اليوم.</p>';
-  bindCopy(document.getElementById('hits'));
+  const sorted=[...hits].sort((a,b)=>num(b.views)-num(a.views));
+  const hitsEl=document.getElementById('hits');
+  hitsEl.innerHTML=sorted.map((h,i)=>renderSignalCard(h,i,{draftId:'draft-'+i})).join('')||'<p class="muted">لا منشورات ناجحة في قائمة المتابعة اليوم.</p>';
+  bindCopy(hitsEl);
+  bindCardFolds(hitsEl);
   staggerCards('#hits .card');
   document.getElementById('patterns').innerHTML=(d.patterns||[]).map(p=>`<span class="tag" dir="auto">${esc(p)}</span>`).join('');document.getElementById('viral-count').innerHTML=`${ltr(String(virals.length))} إشارة من خارج القائمة`;
-  document.getElementById('virals').innerHTML=virals.map((v,i)=>{const pending=!v.url||v.url==='#';return`<article class="card${pending?' pending':''}"><div class="card-top"><div class="identity"><div class="rank">${String(i+1).padStart(2,'0')}</div><div><div class="name" dir="auto">${esc(v.name||v.display_name||'غير معروف')}</div><div class="handle">${ltr(esc(v.handle||''))}${sqHtml(v)}</div></div></div><div class="views-big">${ltr(esc(v.views_label||fmt(v.views)))}<small>مشاهدة</small></div></div>${topBadge(v)}<div class="hook" dir="auto">${esc(v.hook||v.text||'')}</div>${whyLine(v.why_hit)}${draftBlock(v,'vdraft-'+i)}<a class="post-link${pending?' disabled':''}" href="${esc(v.url||'#')}" target="_blank" rel="noopener">${pending?'بانتظار الجمع':'افتح المنشور ↗'}</a></article>`}).join('');
-  bindCopy(document.getElementById('virals'));
+  const viralsEl=document.getElementById('virals');
+  viralsEl.innerHTML=virals.map((v,i)=>renderSignalCard(v,i,{draftId:'vdraft-'+i,pending:!v.url||v.url==='#',hideTarget:true})).join('');
+  bindCopy(viralsEl);
+  bindCardFolds(viralsEl);
   staggerCards('#virals .card');
   try{renderTrendKw(d)}catch(e){console.error(e)}
   if(d.experiment){try{renderExp(d.experiment)}catch(e){console.error(e)}}
   const narr=document.getElementById('virals-narrative');const narrText=d.virals_narrative||d.narrative_synthesis;if(d.trend_radar){try{renderRadar(d.trend_radar,narrText)}catch(e){console.error(e)}}else if(narrText){narr.hidden=false;narr.dir='auto';narr.textContent=narrText}
   renderNoHits(normalizeNoHits(d.no_hits));
+  syncSectionNav();
+  setTimeout(armReveal, 500);
 }
 initTheme();
+bindSectionNav();
 setupReveal();
 boot().catch(err=>{document.getElementById('meta').textContent='تعذّر تحميل ملف البيانات';console.error(err)});
 </script>
