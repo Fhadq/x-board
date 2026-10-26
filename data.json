@@ -2,9 +2,9 @@
   "title": "Daily X narrative digest — 2026-10-26",
   "date": "2026-10-26",
   "timezone": "Asia/Riyadh",
-  "updated": "2026-10-26T21:45:57+03:00",
+  "updated": "2026-10-26T22:53:20+03:00",
   "brand_title": "Fahad · X Virality Score",
-  "brand_handle": "@your_handle",
+  "brand_handle": "@fahadbuild",
   "hits": [
     {
       "id": "2114661455643754716",
@@ -2918,9 +2918,10 @@
     "self_quote_badge": true
   },
   "operator": {
-    "handle": "@your_handle",
-    "name": "Fahad",
-    "profile_url": ""
+    "handle": "@fahadbuild",
+    "name": "فهـد SI",
+    "profile_url": "https://x.com/fahadbuild",
+    "user_id": "918048687045201920"
   },
   "ui": {
     "default_theme": "night"
@@ -3125,9 +3126,30 @@
       "handle": "@bagshaw2112",
       "views": 3194,
       "url": "https://x.com/bagshaw2112/status/2114508448046219302"
+    },
+    {
+      "handle": "@fahadbuild",
+      "name": "فهـد SI",
+      "views": 13,
+      "total_views": 13,
+      "url": "https://x.com/fahadbuild/status/2114552680030884197",
+      "is_you": true,
+      "hit": false
     }
   ],
-  "you_rank": null,
+  "you_rank": {
+    "handle": "@fahadbuild",
+    "best_views": 13,
+    "total_views": 13,
+    "best_url": "https://x.com/fahadbuild/status/2114552680030884197",
+    "posts": 1,
+    "rank_among_watchlist": 52,
+    "total_accounts": 52,
+    "vs_5k": "pending",
+    "vs_10k": "pending",
+    "note": "1 original in the 24h window; ranked by best post among the 51 watchlist accounts that posted originals in the window (+ you). 36 watchlist accounts posted no originals.",
+    "views_as_of": "2026-10-26T22:55:00+03:00"
+  },
   "trend_input_only_posts": [
     {
       "id": "2114787897492803722",
@@ -12170,5 +12192,22 @@
       ]
     },
     "legend": "Trend match 0-100% = 1 - prod(1 - w) over matched 24 h keywords that another author also used in the 48 h window (w: rank 1-10 0.35, 11-25 0.22, 26-40 0.12, curated 0.20). Verdict: >= 50% -> trend; else video/image in the post data -> visual; else >= 100K followers (outsiders without follower data: >= 500K views, estimate) -> author/audience; else coincidence/other. Missing data shows as 'no data'. Heat = sum log10(views) of topic posts (24 h x1, 24-48 h x0.5), scaled to 100. Momentum = log-views last 24 h / previous 24 h. Trend-input-only accounts feed the corpus but are never shown as hits."
+  },
+  "you_sample": {
+    "window_days": 14,
+    "from": "2026-10-12 21:36",
+    "to": "2026-10-26 21:36",
+    "originals": 5,
+    "total_views": 107,
+    "best_views": 34,
+    "best_url": "https://x.com/fahadbuild/status/2111139017932636649",
+    "median_views": 18,
+    "profile": {
+      "followers": 7,
+      "following": 24,
+      "posts": 16,
+      "listed": 0,
+      "created_at": "2017-10-11"
+    }
   }
 }
